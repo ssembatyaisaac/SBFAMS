@@ -16,10 +16,11 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->enum('intake', ['January', 'May', 'September']);
-            $table->string('course_id');
-            $table->string('option');
+            $table->foreignId('user_id');
+            $table->string('course')->default('');
+            $table->string('optional_course')->default('');
             $table->enum('delivery',['Weekend', 'Distance Learning']);
-            $table->string('sponsorship');
+            $table->string('sponsorship')->default('');
             $table->timestamps();
         });
     }

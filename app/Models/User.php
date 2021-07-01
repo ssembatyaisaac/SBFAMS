@@ -20,6 +20,21 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone_1',
+        'phone_2',
+        'gender',
+        'date_of_birth',
+        'religion',
+        'marital_status',
+        'spouse_name',
+        'spouse_contact',
+        'disability',
+        'nature_of_disability',
+        'role',
+        'father_name',
+        'father_contact',
+        'mother_name',
+        'mother_contact',
     ];
 
     /**
@@ -40,4 +55,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function student(){
+        return $this->hasOne(Student::class);
+    }
 }

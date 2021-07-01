@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('baselayout');
 })->name('home');
 
-Route::get('/student', [StudentController::class, 'index'])->name('student');
+Route::resource('student', StudentController::class);
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 Route::get('/admin/register/student', function (){
