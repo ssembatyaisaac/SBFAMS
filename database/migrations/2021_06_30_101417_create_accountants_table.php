@@ -15,6 +15,7 @@ class CreateAccountantsTable extends Migration
     {
         Schema::create('accountants', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

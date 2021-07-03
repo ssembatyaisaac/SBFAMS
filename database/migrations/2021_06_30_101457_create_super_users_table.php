@@ -15,6 +15,7 @@ class CreateSuperUsersTable extends Migration
     {
         Schema::create('super_users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

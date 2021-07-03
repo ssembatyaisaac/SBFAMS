@@ -15,8 +15,8 @@
   <a href="{{ route('home') }}"><h1>SBFAMS</h1></a>
   <li style="display: flex; flex-direction: column;">
     <a href="{{ route('student.index') }}">Students</a>
-    <a href="{{ route('admin') }}">Admin</a>
-    <a href="{{ route('accounts') }}">Account</a>
+    <a href="{{ route('admin.index') }}">Admin</a>
+    <a href="{{ route('accounts.index') }}">Account</a>
     <a href="{{ route('superUser') }}">Super User</a>
   </li>
   <div>

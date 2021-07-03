@@ -14,7 +14,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $payments = Payment::all();
+        return view('payment.index', compact('payments'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        //
+        return view('payment.create');
     }
 
     /**
@@ -35,7 +36,17 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payment = Payment::create([
+            "amount" => $request->input('amount'),
+            'academic_year' => $request->input('academic_year'),
+            'semster' => $request->input('semster'),
+            'currency' => $request->input('currency'),
+            'date_of_payment' => $request->input('date_of_payment'),
+            'mode_of_payment' => $request->input('mode_of_payment'),
+
+        ]);
+
+        return redirect()->route('payment.create');
     }
 
     /**

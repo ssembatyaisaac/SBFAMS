@@ -5,6 +5,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AccountantController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuperUserController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,15 +21,22 @@ use App\Http\Controllers\SuperUserController;
 
 Route::get('/', function () {
     return view('baselayout');
-})->name('home');
+})->name('baselayout');
+
+//Route::get('/dashboard', 'App\Http\Controllers\DashboardController@dashboard')->name('dashboard');
 
 Route::resource('student', StudentController::class);
+Route::resource('accounts', AccountantController::class);
+Route::resource('admin', AdminController::class);
+Route::resource('course', CourseController::class);
+Route::resource('payment', PaymentController::class);
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 Route::get('/admin/register/student', function (){
     return view('admin.register_student');
 })->name('register_student');
 
-Route::get('/accounts', [AccountantController::class, 'index'])->name('accounts');
-
 Route::get('/superUser', [SuperUserController::class, 'index'])->name('superUser');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

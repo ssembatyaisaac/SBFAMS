@@ -27,7 +27,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        //create a new students
+        return view('students.create');
     }
 
     /**
@@ -72,7 +73,8 @@ class StudentController extends Controller
         ]);
 
         $student->save();
-        dd($student);
+        //dd($student);
+        return redirect()->route('student.create');
     }
 
     /**
@@ -83,7 +85,8 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        //Show Student
+        return view('students.show', compact('student'));
     }
 
     /**
@@ -94,7 +97,8 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        //Display edit form for students
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -106,8 +110,43 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        //Update Student Record      
+        $id = $student->user_id;
+        $user = User::find($id);
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->phone_1 = $request->input('phone_1');
+        $user->phone_2 = $request->input('phone_2');
+        $user->gender = $request->input('gender');
+        $user->date_of_birth = $request->input('date_of_birth');
+        $user->religion = $request->input('religion');
+        $user->marital_status= $request->input('marital_status');
+        $user->spouse_name = $request->input('spouse_name');
+        $user->spouse_contact = $request->input('spouse_contact');
+        $user->disability  = $request->input('disability');
+        $user->nature_of_disability = $request->input('nature_of_disability');
+        $user->role = $request->input('role');
+        $user->father_name = $request->input('father_name');
+        $user->father_contact = $request->input('father_contact');
+        $user->mother_name = $request->input('mother_name');
+        $user->mother_contact = $request->input('mother_contact');
+        $user->password = $request->input('password');
+
+        $user->update();
+
+        $student->intake = $request->input('intake');
+        $student->course = $request->input('course');
+        $student->optional_course = $request->input('optional_course');
+        $student->delivery = $request->input('delivery');
+        $student->sponsorship = $request->input('sponsorship');
+
+        $student->update();
+
+        return redirect()->route('student.index')
+            ->with('success', 'Product updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -117,6 +156,10 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        //Delete Student
+        $id = $student->user_id;
+        User::find($id)->delete();
+        $student->delete();
+        return redirect()->route('student.index');
     }
 }

@@ -32,8 +32,8 @@
         </div>
 
         <div class="name">
-          <label for="dob">Date Of Birth:</label>
-          <input type="date" name="dob" id="dob">
+          <label for="date_of_birth">Date Of Birth:</label>
+          <input type="date" name="date_of_birth" id="date_of_birth">
         </div>
 
         <div class="name">

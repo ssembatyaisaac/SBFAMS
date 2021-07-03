@@ -15,8 +15,14 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('amount');
-            $table->integer('course_id')->nullable();
+            $table->bigInteger('amount')->default(0);
+            $table->string('academic_year')->default('');
+            $table->string('semster')->default('');
+            $table->string('currency')->default('UGX');
+            $table->string('mode_of_payment')->default('');
+            $table->date('date_of_payment')->nullable();
+            $table->foreignId('accountant_id')->nullable();
+            $table->foreignId('course_id')->nullable();
             $table->timestamps();
         });
     }
