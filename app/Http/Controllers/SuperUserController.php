@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuperUser;
+use App\Models\User;
+use App\Models\Course;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class SuperUserController extends Controller
@@ -14,7 +17,11 @@ class SuperUserController extends Controller
      */
     public function index()
     {
-        return view('superUser.index');
+        $students = User::where('role', 'Student')->get();
+        $accountants = User::where('role', 'Accountant')->get();
+        $courses = Course::all();
+        $admins = User::where('role', 'Admin')->get();
+        return view('superUser.index', compact('students','accountants','courses','admins'));
     }
 
     /**

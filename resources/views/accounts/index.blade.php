@@ -1,7 +1,7 @@
 @extends('baselayout')
 
 @section('content')
-    <h1>This is a student</h1>
+    <h1>This is the accountant</h1>
     <table>
         <tr>
             <th>Name</th>

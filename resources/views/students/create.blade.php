@@ -53,7 +53,7 @@
 
         <div class="name">
           <label for="spouse_contact">Spouse Contact:</label>
-          <input type="text" name="spouse_contact" id="spouse_contact">
+          <input type="tel" name="spouse_contact" id="spouse_contact">
         </div>
 
         <div class="name">
@@ -71,12 +71,12 @@
 
         <div class="name">
           <label for="father_name">Father's Name:</label>
-          <input type="father_name" name="father_name" id="father_name">
+          <input type="text" name="father_name" id="father_name">
         </div>
 
         <div class="name">
           <label for="father_contact">Father's Contact:</label>
-          <input type="text" name="father_contact" id="father_contact">
+          <input type="tel" name="father_contact" id="father_contact">
         </div>
 
         <div class="name">
@@ -86,7 +86,7 @@
 
         <div class="name">
           <label for="mother_contact">Mother Contact:</label>
-          <input type="text" name="mother_contact" id="mother_contact">
+          <input type="tel" name="mother_contact" id="mother_contact">
         </div>
 
         <input type="hidden" name="password" value="secret">

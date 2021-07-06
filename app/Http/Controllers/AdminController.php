@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -15,8 +17,11 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $students = User::where('role', 'Student')->get();
+        $accountants = User::where('role', 'Accountant')->get();
+        $courses = Course::all();
         $admins = User::where('role', 'Admin')->get();
-        return view('admin.index', compact('admins'));
+        return view('admin.index', compact('students','accountants','courses','admins'));
     }
 
     /**
@@ -58,7 +63,7 @@ class AdminController extends Controller
             'father_contact' => $request->input('father_contact'),
             'mother_name' => $request->input('mother_name'),
             'mother_contact' => $request->input('mother_contact'),
-            'password' => $request->input('password'),
+            'password' => Hash::make($request->input('password')),
         ]);
 
         $user->save();

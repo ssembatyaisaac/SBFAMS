@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +20,9 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Student::class);
+
         $students = Student::all();
-        //dd($students);
         return view('students.index', compact('students'));
     }
 
@@ -59,7 +65,8 @@ class StudentController extends Controller
             'father_contact' => $request->input('father_contact'),
             'mother_name' => $request->input('mother_name'),
             'mother_contact' => $request->input('mother_contact'),
-            'password' => $request->input('password'),
+            'password' => Hash::make($request->input('password')),
+            
         ]);
 
         $student = Student::create([
@@ -85,6 +92,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+        $this->authorize('view', $student);
         //Show Student
         return view('students.show', compact('student'));
     }
@@ -131,7 +139,7 @@ class StudentController extends Controller
         $user->father_contact = $request->input('father_contact');
         $user->mother_name = $request->input('mother_name');
         $user->mother_contact = $request->input('mother_contact');
-        $user->password = $request->input('password');
+        $user->password = Hash::make($request->input('password'));
 
         $user->update();
 

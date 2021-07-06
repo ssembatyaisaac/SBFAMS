@@ -21,7 +21,7 @@ use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('baselayout');
-})->name('baselayout');
+})->name('home')->middleware('user_role');
 
 //Route::get('/dashboard', 'App\Http\Controllers\DashboardController@dashboard')->name('dashboard');
 
@@ -39,4 +39,8 @@ Route::get('/superUser', [SuperUserController::class, 'index'])->name('superUser
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home1');
+
+Route::get('/loggedout', function(){
+    return view('welcome');
+})->name('loggedout');

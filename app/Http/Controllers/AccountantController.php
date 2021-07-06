@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Accountant;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AccountantController extends Controller
 {
@@ -57,7 +58,7 @@ class AccountantController extends Controller
             'father_contact' => $request->input('father_contact'),
             'mother_name' => $request->input('mother_name'),
             'mother_contact' => $request->input('mother_contact'),
-            'password' => $request->input('password'),
+            'password' => Hash::make($request->input('password')),
         ]);
 
         $user->save();
