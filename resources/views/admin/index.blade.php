@@ -1,33 +1,94 @@
 @extends('baselayout')
 
 @section('content')
-    <h1>This is an admin</h1>
-    <div>
-        <p><strong> No. Of Students: </strong>{{$students->count()}}</p>
-        <p><strong> No. Of Accountants: </strong>{{$accountants->count()}}</p>
-        <p><strong> No. Of Courses: </strong>{{$courses->count()}}</p>
-    </div>
-    <div style="display: flex; justify-content: space-around;">
-        <div style="display: flex; flex-direction: column;">
-            <a href="{{ route('student.create') }}">Register Student</a>
-            <a href="{{ route('accounts.create') }}">Register Accountant</a>
-            <a href="{{ route('course.create') }}">Create Course</a>
+        <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                <h1 class="m-0">Admin Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
         </div>
-        <div class="admins">
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                </tr>
-                @foreach ($admins as $admin)
-                <tr>
-                    <td>{{ $admin->name }}</td>
-                    <td>{{ $admin->email }}</td>
-                    <td> {{ $admin->phone_1 }}</td>
-                </tr>
-                @endforeach
-            </table>
+        <!-- /.content-header -->
+    
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                    <h3>{{$students->count()}}</h3>
+    
+                    <p>Students</p>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                    <h3>{{$accountants->count()}}</h3>
+    
+                    <p>Accountants</p>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+                </div>
+                
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                    <h3>{{$courses->count()}}</h3>
+    
+                    <p>Courses</p>
+                    </div>
+                    <div class="icon">
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- /.row -->
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-7 connectedSortable">
+                <!-- Custom tabs (Charts with tabs)-->
+    
+                </section>
+                <!-- /.Left col -->
+
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-5 connectedSortable">
+    
+                </section>
+                <!-- right col -->
+            </div>
+            <!-- /.row (main row) -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
         </div>
     </div>
 @endsection

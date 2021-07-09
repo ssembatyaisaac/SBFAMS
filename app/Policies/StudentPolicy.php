@@ -45,7 +45,9 @@ class StudentPolicy
      */
     public function create(User $user)
     {
-        //
+        if(auth()->check() && ($user->role == 'Admin' || $user->role == 'Super User')){
+            return true;
+        }
     }
 
     /**
@@ -57,7 +59,9 @@ class StudentPolicy
      */
     public function update(User $user, Student $student)
     {
-        //
+        if(auth()->check() && ($user->role == 'Admin' || $user->role == 'Super User')){
+            return true;
+        }
     }
 
     /**
@@ -69,7 +73,9 @@ class StudentPolicy
      */
     public function delete(User $user, Student $student)
     {
-        //
+        if(auth()->check() && ($user->role == 'Admin' || $user->role == 'Super User')){
+            return true;
+        }
     }
 
     /**

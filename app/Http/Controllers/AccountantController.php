@@ -61,7 +61,10 @@ class AccountantController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
 
-        $user->save();
+        $accountant = Accountant::create([
+            'user_id' => $user->id,
+        ]);
+        
         return redirect()->route('accounts.create');
     }
 

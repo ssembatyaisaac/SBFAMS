@@ -24,12 +24,14 @@ Route::get('/', function () {
 })->name('home')->middleware('user_role');
 
 //Route::get('/dashboard', 'App\Http\Controllers\DashboardController@dashboard')->name('dashboard');
+Route::group(['middleware'=>['auth']], function(){
+    Route::resource('student', StudentController::class);
+    Route::resource('accounts', AccountantController::class);
+    Route::resource('admin', AdminController::class);
+    Route::resource('course', CourseController::class);
+    Route::resource('payment', PaymentController::class);
+});
 
-Route::resource('student', StudentController::class);
-Route::resource('accounts', AccountantController::class);
-Route::resource('admin', AdminController::class);
-Route::resource('course', CourseController::class);
-Route::resource('payment', PaymentController::class);
 
 Route::get('/admin/register/student', function (){
     return view('admin.register_student');

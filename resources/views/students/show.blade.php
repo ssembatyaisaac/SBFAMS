@@ -2,13 +2,6 @@
 
 @section('content')
 
-    <div>
-        <form action="{{ route('logout') }}" method="post">
-            @csrf
-            <button type="submit">Logout</button>
-        </form>
-    </div>
-
     <h1>Welcome {{$student->user->name}}</h1>
     <h2>Student Bio-Data</h2>
     <p>Name: {{$student->user->name}}</p>

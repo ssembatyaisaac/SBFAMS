@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('spouse_contact')->default('');
             $table->enum('disability', ['Yes', 'No']);
             $table->string('nature_of_disability')->default('');
-            $table->string('role')->default('');
+            $table->string('role')->default('Super User');
             $table->string('father_name')->default('');
             $table->string('father_contact')->default('');
             $table->string('mother_name')->default('');

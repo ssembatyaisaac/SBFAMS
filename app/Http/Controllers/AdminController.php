@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +20,8 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Admin::class);
+        
         $students = User::where('role', 'Student')->get();
         $accountants = User::where('role', 'Accountant')->get();
         $courses = Course::all();
@@ -66,7 +71,10 @@ class AdminController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
 
-        $user->save();
+        $admin = Admin::create([
+            'user_id' => $user->id,
+        ]);
+
         return redirect()->route('admin.create');
     }
 

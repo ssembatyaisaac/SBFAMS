@@ -33,6 +33,7 @@ class StudentController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Student::class);
         //create a new students
         return view('students.create');
     }
