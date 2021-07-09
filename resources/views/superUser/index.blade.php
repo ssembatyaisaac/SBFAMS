@@ -34,9 +34,6 @@
 
                 <p>Students</p>
                 </div>
-                <div class="icon">
-                <i class="ion ion-bag"></i>
-                </div>
                 <a href="{{ route('student.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
             </div>
@@ -48,9 +45,6 @@
                 <h3>{{$accountants->count()}}</h3>
 
                 <p>Accountants</p>
-                </div>
-                <div class="icon">
-                <i class="ion ion-stats-bars"></i>
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -64,9 +58,6 @@
 
                 <p>Admins</p>
                 </div>
-                <div class="icon">
-                <i class="ion ion-person-add"></i>
-                </div>
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
             </div>
@@ -78,9 +69,6 @@
                 <h3>{{$courses->count()}}</h3>
 
                 <p>Courses</p>
-                </div>
-                <div class="icon">
-                <i class="ion ion-pie-graph"></i>
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
