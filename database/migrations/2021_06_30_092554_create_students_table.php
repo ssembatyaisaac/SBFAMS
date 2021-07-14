@@ -17,7 +17,7 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->enum('intake', ['January', 'May', 'September']);
             $table->foreignId('user_id');
-            $table->string('course')->default('');
+            $table->foreignId('course_id');
             $table->string('optional_course')->default('');
             $table->enum('delivery',['Weekend', 'Distance Learning']);
             $table->string('sponsorship')->default('');

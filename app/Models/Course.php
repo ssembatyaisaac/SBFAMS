@@ -14,4 +14,8 @@ class Course extends Model
         'code',
         'duration',
     ];
+
+    public function student(){
+        return $this->hasMany(Student::class);
+    }
 }

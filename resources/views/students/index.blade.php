@@ -46,7 +46,7 @@
                         <tr>
                             <td><a href="{{ route('student.show' ,['student'=>$student]) }}">{{ $student->user->name }}</a></td>
                             <td>{{ $student->user->email }}</td>
-                            <td>{{ $student->course }}</td>
+                            <td>{{ $student->course->name }}</td>
                             <td>{{ $student->delivery }}</td>
                             <td>{{ $student->intake }}</td>
                             <td><a href="{{ route('student.edit',['student'=>$student]) }}">Edit</a></td>

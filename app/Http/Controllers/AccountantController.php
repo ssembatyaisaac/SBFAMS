@@ -17,7 +17,7 @@ class AccountantController extends Controller
     public function index()
     {
         $accountants = User::where('role', 'Accountant')->get();
-        //dd($accountants);
+        
         return view('accounts.index', compact('accountants'));
     }
 

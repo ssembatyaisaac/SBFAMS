@@ -6,7 +6,18 @@
       <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="index3.html" class="nav-link">Home</a>
+      @if (Auth::user()->role == 'Student')
+        <a href="{{ route('student.show', ['student' => session('user')])}}" class="nav-link">Home</a> 
+      @endif
+      @if (Auth::user()->role == 'Admin')
+        <a href="{{ route('admin.show', ['admin' => session('user')])}}" class="nav-link">Home</a> 
+      @endif
+      @if (Auth::user()->role == 'Accountant')
+        <a href="{{ route('accounts.show', ['accountant' => session('user')])}}" class="nav-link">Home</a> 
+      @endif
+      @if (Auth::user()->role == 'Super User')
+        <a href="{{ route('superUser')}}" class="nav-link">Home</a> 
+      @endif
     </li>
     <li class="nav-item d-none d-sm-inline-block">
       <a href="#" class="nav-link">Contact</a>

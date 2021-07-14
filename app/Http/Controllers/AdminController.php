@@ -22,11 +22,8 @@ class AdminController extends Controller
     {
         $this->authorize('viewAny', Admin::class);
         
-        $students = User::where('role', 'Student')->get();
-        $accountants = User::where('role', 'Accountant')->get();
-        $courses = Course::all();
         $admins = User::where('role', 'Admin')->get();
-        return view('admin.index', compact('students','accountants','courses','admins'));
+        return view('admin.index', compact('admins'));
     }
 
     /**
@@ -86,7 +83,10 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
-        //
+        $students = User::where('role', 'Student')->get();
+        $accountants = User::where('role', 'Accountant')->get();
+        $courses = Course::all();
+        return view('admin.show', compact('students', 'accountants', 'courses'));
     }
 
     /**

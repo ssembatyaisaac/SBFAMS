@@ -48,7 +48,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="course">Programme being applied for:</label>
-                    <input type="text" class="form-control" name="course" id="course" value="{{$student->course}}">
+                    <input type="text" class="form-control" name="course" id="course" value="{{$student->course->name }}">
                   </div>
                   <div class="form-group">
                     <label for="optional_course">Optional Course:</label>

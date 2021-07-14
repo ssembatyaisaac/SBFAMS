@@ -47,7 +47,11 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="course">Programme being applied for:</label>
-                  <input type="text" class="form-control" name="course" id="course">
+                  <select class="form-control select2" placeholder="Select a course" name="course" style="width: 100%;">
+                    @foreach ($courses as $course)
+                      <option>{{ $course->name }}</option>
+                    @endforeach
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="optional_course">Optional Course:</label>
@@ -104,7 +108,7 @@
         
                 <div class="form-group">
                   <label for="spouse_contact">Spouse Contact:</label>
-                  <input type="text" class="form-control" name="spouse_contact" id="spouse_contact">
+                  <input type="tel" class="form-control" name="spouse_contact" id="spouse_contact">
                 </div>
               </div>
             </div>
@@ -123,7 +127,7 @@
                     <label class="form-check-label">No</label>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" disabled>
                   <label for="nature_of_disability">Nature Of Disability:</label>
                   <input type="text" class="form-control" name="nature_of_disability" id="nature_of_disability">
                 </div>
@@ -139,11 +143,11 @@
                 </div>
                 <div class="form-group">
                   <label for="phone_1">Phone Number:</label>
-                  <input type="text" class="form-control" name="phone_1" id="phone_1">                
+                  <input type="tel" class="form-control" name="phone_1" id="phone_1">                
                 </div>
                 <div class="form-group">
                   <label for="phone_2">Alt Phone Number:</label>
-                  <input type="text" class="form-control" name="phone_2" id="phone_2">                 
+                  <input type="tel" class="form-control" name="phone_2" id="phone_2">                 
                 </div>
               </div>
             </div>
@@ -158,7 +162,7 @@
         
                 <div class="form-group">
                   <label for="father_contact">Father's (Guardian) Contact:</label>
-                  <input type="text" class="form-control" name="father_contact" id="father_contact">
+                  <input type="tel" class="form-control" name="father_contact" id="father_contact">
                 </div>
               </div>
               <div class="col-md-6">
@@ -169,7 +173,7 @@
         
                 <div class="form-group">
                   <label for="mother_contact">Mother (Guardian) Contact:</label>
-                  <input type="text" class="form-control" name="mother_contact" id="mother_contact">
+                  <input type="tel" class="form-control" name="mother_contact" id="mother_contact">
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -35,7 +36,8 @@ class StudentController extends Controller
     {
         $this->authorize('create', Student::class);
         //create a new students
-        return view('students.create');
+        $courses = Course::all();
+        return view('students.create', compact('courses'));
     }
 
     /**
@@ -47,6 +49,7 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //Store Student
+        $course_id = Course::firstWhere('name', $request->input('course'))->id;
 
         $user = User::create([
             'name' => $request->input('name'),
@@ -73,7 +76,7 @@ class StudentController extends Controller
         $student = Student::create([
             'user_id' => $user->id,
             'intake' => $request->input('intake'),
-            'course' => $request->input('course'),
+            'course_id' => $course_id,
             'optional_course' => $request->input('optional_course'),
             'delivery' => $request->input('delivery'),
             'sponsorship' => $request->input('sponsorship'),

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Student;
+use App\Models\Admin;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -55,12 +56,23 @@ class LoginController extends Controller
         {
             if (auth()->user()->role == 'Student') {
                 $user_id = auth()->user()->id;
-                $student = Student::where('user_id', $user_id)->get();
-                return redirect()->route('student.show' ,['student'=>$student[0]]);
+                //Retrieve student from array
+                $student = Student::where('user_id', $user_id)->get()[0];
+                //Store session of Student
+                session(['user'=>$student]);
+                return redirect()->route('student.show' ,['student'=>$student]);
             } elseif (auth()->user()->role == 'Admin'){
-                return redirect()->route('admin.index');
+                $user_id = Auth::user()->id;
+                $admin = Admin::where('user_id', $user_id)->get()[0];
+                //Store session of admin
+                session(['user'=>$admin]);
+                return redirect()->route('admin.show', compact('admin'));
             } elseif (auth()->user()->role == 'Accountant') {
-                return redirect()->route('accounts.index');
+                $user_id = Auth::user()->id;
+                $accounts = Accountant::where('user_id', $user_id)->get()[0];
+                //Store session of admin
+                session(['user'=>$accounts]);
+                return redirect()->route('accounts.show', compact('accounts'));
             } elseif (auth()->user()->role == 'Super User') {
                 return redirect()->route('superUser');
             }

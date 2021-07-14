@@ -12,7 +12,7 @@ class Student extends Model
     protected $fillable = [
         'user_id',
         'intake',
-        'course',
+        'course_id',
         'optional_course',
         'delivery',
         'sponsorship',
@@ -21,4 +21,9 @@ class Student extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function course(){
+        return $this->belongsTo(Course::class);
+    }
+
 }

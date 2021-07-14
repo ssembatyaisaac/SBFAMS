@@ -19,6 +19,10 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
+Route::get('/profile', function () {
+    return view('students.profile');
+})->name('profile');
+
 Route::get('/', function () {
     return view('baselayout');
 })->name('home')->middleware('user_role');
