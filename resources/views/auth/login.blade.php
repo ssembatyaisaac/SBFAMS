@@ -5,7 +5,8 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>SBFAMS</a>
+      <img src="https://billbrain.tech/wp-content/uploads/2019/05/Billbrain-Technologies-Ltd-ITES-BPO-3.svg" class="custom-logo" alt="Billbrain Technologies" itemprop="logo">
+    
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
