@@ -47,7 +47,7 @@
           <!-- About Me Box -->
           <div class="card card-primary">
             <div class="card-body">
-              <strong></i>Intake</strong>
+              <strong>Intake</strong>
 
               <p class="text-muted">{{ $student->intake }}</p>
 

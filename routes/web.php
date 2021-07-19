@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuperUserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,10 +31,11 @@ Route::get('/', function () {
 //Route::get('/dashboard', 'App\Http\Controllers\DashboardController@dashboard')->name('dashboard');
 Route::group(['middleware'=>['auth']], function(){
     Route::resource('student', StudentController::class);
-    Route::resource('accounts', AccountantController::class);
+    Route::resource('accountant', AccountantController::class);
     Route::resource('admin', AdminController::class);
     Route::resource('course', CourseController::class);
     Route::resource('payment', PaymentController::class);
+    Route::resource('registration', RegistrationController::class);
 });
 
 

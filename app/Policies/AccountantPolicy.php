@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Admin;
+use App\Models\Accountant;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class AdminPolicy
+class AccountantPolicy
 {
     use HandlesAuthorization;
 
@@ -18,8 +18,7 @@ class AdminPolicy
      */
     public function viewAny(User $user)
     {
-
-        if (auth()->check() &&  $user->role == 'Super User') {
+        if (auth()->check() &&  ($user->role == 'Super User' || $user->role == 'Admin')) {
             return true;
         }
     }
@@ -28,12 +27,12 @@ class AdminPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Accountant  $accountant
      * @return mixed
      */
-    public function view(User $user, Admin $admin)
+    public function view(User $user, Accountant $accountant)
     {
-        if(auth()->check() && ($user->role == 'Super User'|| auth()->user()->id == $admin->user_id)){
+        if(auth()->check() && ($user->role == 'Super User' || $user->role == 'Admin' || auth()->user()->id == $accountant->user_id)){
             return true;
         }
     }
@@ -53,10 +52,10 @@ class AdminPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Accountant  $accountant
      * @return mixed
      */
-    public function update(User $user, Admin $admin)
+    public function update(User $user, Accountant $accountant)
     {
         //
     }
@@ -65,10 +64,10 @@ class AdminPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Accountant  $accountant
      * @return mixed
      */
-    public function delete(User $user, Admin $admin)
+    public function delete(User $user, Accountant $accountant)
     {
         //
     }
@@ -77,10 +76,10 @@ class AdminPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Accountant  $accountant
      * @return mixed
      */
-    public function restore(User $user, Admin $admin)
+    public function restore(User $user, Accountant $accountant)
     {
         //
     }
@@ -89,10 +88,10 @@ class AdminPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Accountant  $accountant
      * @return mixed
      */
-    public function forceDelete(User $user, Admin $admin)
+    public function forceDelete(User $user, Accountant $accountant)
     {
         //
     }

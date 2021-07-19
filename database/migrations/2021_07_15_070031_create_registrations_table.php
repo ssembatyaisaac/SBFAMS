@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentsTable extends Migration
+class CreateRegistrationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('registrations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('amount')->default(0);
-            $table->foreignId('registration_id');
-            $table->foreignId('accountant_id');
-            $table->foreignId('course_id');
-            $table->string('receipt_id')->default('');
+            $table->foreignId('student_id');
+            $table->string('academic_year')->default('2021/2022');
+            $table->string('semster')->default('I');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('registrations');
     }
 }

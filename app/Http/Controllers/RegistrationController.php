@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Payment;
-use App\Models\Student;
+use App\Models\Registration;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
-class PaymentController extends Controller
+class RegistrationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::all();
-        return view('payment.index', compact('payments'));
+        $registrations = Registration::where('student_id', auth()->user()->student->id)->get();
+        return view('registration.index', compact('registrations'));
     }
 
     /**
@@ -26,8 +26,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        $students = Student::all();
-        return view('payment.create', compact('students'));
+        //
     }
 
     /**
@@ -38,24 +37,23 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $payment = Payment::create([
-            'amount' => $request->input('amount'),
-            'academic_year' => $request->input('academic_year'),
-            'semster' => $request->input('semster'),
-            'currency' => $request->input('currency'),
-
+        $registration = Registration::create([
+            'student_id' => $request->input('student'),
+            'academic_year' => session('academic_year'),
+            'semster' => session('semster'),
         ]);
 
-        return redirect()->route('payment.create');
+        return redirect()->route('registration.index');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Registration  $registration
      * @return \Illuminate\Http\Response
      */
-    public function show(Payment $payment)
+    public function show(Registration $registration)
     {
         //
     }
@@ -63,10 +61,10 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Registration  $registration
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit(Registration $registration)
     {
         //
     }
@@ -75,10 +73,10 @@ class PaymentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Registration  $registration
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, Registration $registration)
     {
         //
     }
@@ -86,10 +84,10 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Payment  $payment
+     * @param  \App\Models\Registration  $registration
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payment $payment)
+    public function destroy(Registration $registration)
     {
         //
     }
