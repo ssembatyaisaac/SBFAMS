@@ -5,7 +5,7 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>SBFAMS</a>
+      <a href="../../index2.html" class="h1">{{ config('app.name', 'Laravel') }}</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
