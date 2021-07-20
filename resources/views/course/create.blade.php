@@ -54,7 +54,10 @@
                     <label class="form-check-label">3 months</label>
                   </div>
                 </div>
-            
+                <div class="from-group">
+                  <label for="fees">Course fees:</label>
+                  <input type="number" class="form-control" name="fees" id="fees">
+                </div>
             <button class="btn btn-primary" type="submit">Register</button>
           </div>
           <!-- /.card-body -->

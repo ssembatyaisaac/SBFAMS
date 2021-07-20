@@ -18,7 +18,7 @@
 
         </div>
         <!-- /.card-header -->
-        <form action="{{ route ('accounts.store') }}" method="post">
+        <form action="{{ route ('accountant.store') }}" method="post">
           @csrf
           <div class="card-body">
             <h5>1.1: ACCOUNTANT'S PERSONAL INFORMATION</h5>

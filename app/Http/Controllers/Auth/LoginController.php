@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Student;
+use App\Models\Accountant;
 use App\Models\Admin;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class LoginController extends Controller
 {
@@ -54,6 +56,24 @@ class LoginController extends Controller
    
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
+            $current_date = Carbon::now();
+            $sem_1 = new Carbon('first day of August');
+            $sem_2 = new Carbon('first day of January');
+            if ($current_date >= $sem_1 & $current_date <= $sem_2) {
+                $academic_year = $current_date->year."/".$current_date->addYear(1)->year;
+                $semster = 1;
+                //Storing academic year and semster in session
+                session(['academic_year'=>$academic_year]);
+                session(['semster'=>$semster]);
+
+            } else if ($current_date >= $sem_2 & $current_date <= $sem_1) {
+                $academic_year = $current_date->year."/".$current_date->addYear(1)->year;
+                $semster = 2;
+
+                session(['academic_year'=>$academic_year]);
+                session(['semster'=>$semster]);
+            }
+
             if (auth()->user()->role == 'Student') {
                 $user_id = auth()->user()->id;
                 //Retrieve student from array
@@ -69,10 +89,10 @@ class LoginController extends Controller
                 return redirect()->route('admin.show', compact('admin'));
             } elseif (auth()->user()->role == 'Accountant') {
                 $user_id = Auth::user()->id;
-                $accounts = Accountant::where('user_id', $user_id)->get()[0];
+                $accountant = Accountant::where('user_id', $user_id)->first();
                 //Store session of admin
-                session(['user'=>$accounts]);
-                return redirect()->route('accounts.show', compact('accounts'));
+                session(['user'=>$accountant]);
+                return redirect()->route('accountant.show', $accountant);
             } elseif (auth()->user()->role == 'Super User') {
                 return redirect()->route('superUser');
             }
@@ -93,6 +113,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/loggedout');
+        return redirect('/login');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accountant;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,8 +17,9 @@ class AccountantController extends Controller
      */
     public function index()
     {
-        $accountants = User::where('role', 'Accountant')->get();
-        
+        $this->authorize('viewAny', Accountant::class);
+
+        $accountants = User::where('role', 'Accountant')->get(); 
         return view('accounts.index', compact('accountants'));
     }
 
@@ -65,7 +67,7 @@ class AccountantController extends Controller
             'user_id' => $user->id,
         ]);
         
-        return redirect()->route('accounts.create');
+        return redirect()->route('accountant.create');
     }
 
     /**
@@ -76,7 +78,11 @@ class AccountantController extends Controller
      */
     public function show(Accountant $accountant)
     {
-        //
+        $this->authorize('view', $accountant);
+        
+        $students = User::where('role', 'Student')->get();
+        $courses = Course::all();
+        return view('accounts.show', compact('students', 'courses'));
     }
 
     /**

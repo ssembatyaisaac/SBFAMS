@@ -8,7 +8,7 @@
     <a href="{{ route('admin.show', ['admin' => session('user')])}}" class="brand-link"> 
   @endif
   @if (Auth::user()->role == 'Accountant')
-    <a href="{{ route('accounts.show')}}" class="brand-link"> 
+    <a href="{{ route('accountant.show', ['accountant' => session('user')])}}" class="brand-link"> 
   @endif
   @if (Auth::user()->role == 'Super User')
     <a href="{{ route('superUser')}}" class="brand-link"> 
@@ -36,19 +36,26 @@
              with font-awesome or any other icon font library -->
         @if (Auth::user()->role == 'Student')
         <li class="nav-item">
+          <a href="{{ route('registration.index') }}" class="nav-link {{ (request()->is('registration*')) ? 'active' : '' }}">
+            <p>
+              Registration
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('payment.index') }}" class="nav-link {{ (request()->is('accounts*')) ? 'active' : '' }}">
+            <p>
+              Payments
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{{ route('student.show', ['student' => session('user')]) }}" class="nav-link {{ (request()->is('student*')) ? 'active' : '' }}">
             <p>
               Profile
             </p>
           </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link {{ (request()->is('accounts*')) ? 'active' : '' }}">
-            <p>
-              Payments
-            </p>
-          </a>
-        </li>           
+        </li>         
         @else
         <li class="nav-item">
           <a href="{{ route('student.index') }}" class="nav-link {{ (request()->is('student*')) ? 'active' : '' }}">
@@ -57,20 +64,15 @@
             </p>
           </a>
         </li>
+        @if (Auth::user()->role == 'Super User' || Auth::user()->role == 'Admin')
         <li class="nav-item">
-          <a href="{{ route('accounts.index') }}" class="nav-link {{ (request()->is('accounts*')) ? 'active' : '' }}">
+          <a href="{{ route('accountant.index') }}" class="nav-link {{ (request()->is('accounts*')) ? 'active' : '' }}">
             <p>
               Accountants
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="{{ route('admin.index') }}" class="nav-link {{ (request()->is('admin*')) ? 'active' : '' }}">
-            <p>
-              Administrators
-            </p>
-          </a>
-        </li>
+        @endif
         <li class="nav-item">
           <a href="{{ route('course.index') }}" class="nav-link {{ (request()->is('course*')) ? 'active' : '' }}">
             <p>
@@ -78,9 +80,18 @@
             </p>
           </a>
         </li>
+        @if (Auth::user()->role == 'Super User')
+        <li class="nav-item">
+          <a href="{{ route('admin.index') }}" class="nav-link {{ (request()->is('admin*')) ? 'active' : '' }}">
+            <p>
+              Administrators
+            </p>
+          </a>
+        </li>
+        @endif
         @if (Auth::user()->role == 'Accountant' || Auth::user()->role == 'Super User')
         <li class="nav-item">
-          <a href="" class="nav-link {{ (request()->is('admin/cities*')) ? 'active' : '' }}">
+          <a href="{{ route('payment.index') }}" class="nav-link {{ (request()->is('payment*')) ? 'active' : '' }}">
             <p>
               Payments
             </p>

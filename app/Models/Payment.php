@@ -11,10 +11,18 @@ class Payment extends Model
 
     protected $fillable = [
         'amount',
-        'academic_year',
-        'semster',
-        'currency',
-        'mode_of_payment',
-        'date_of_payment',   
+        'registration_id',
+        'course_id',
+        'receipt_id',
+        'accountant_id',
     ];
+
+    public function registration(){
+        $this->belongsTo(Registration::class);
+    }
+
+    public function accountant(){
+        $this->belongsTo(Accountant::class);
+    }
+
 }

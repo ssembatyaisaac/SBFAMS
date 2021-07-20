@@ -13,7 +13,7 @@
         <a href="{{ route('admin.show', ['admin' => session('user')])}}" class="nav-link">Home</a> 
       @endif
       @if (Auth::user()->role == 'Accountant')
-        <a href="{{ route('accounts.show', ['accountant' => session('user')])}}" class="nav-link">Home</a> 
+        <a href="{{ route('accountant.show', ['accountant' => session('user')])}}" class="nav-link">Home</a> 
       @endif
       @if (Auth::user()->role == 'Super User')
         <a href="{{ route('superUser')}}" class="nav-link">Home</a> 

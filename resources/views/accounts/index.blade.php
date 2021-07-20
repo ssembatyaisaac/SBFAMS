@@ -8,7 +8,7 @@
     <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-        <a href="{{ route('accounts.create') }}"><button class="btn btn-primary">Register Accountant</button></a>
+        <a href="{{ route('accountant.create') }}"><button class="btn btn-primary">Register Accountant</button></a>
         </div>
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">

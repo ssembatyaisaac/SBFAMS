@@ -40,6 +40,7 @@ class CourseController extends Controller
             'name' => $request->input('name'),
             'code' => $request->input('code'),
             'duration' => $request->input('duration'),
+            'fees' => $request->input('fees'),
         ]);
 
         return redirect()->route('course.create');
