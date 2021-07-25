@@ -33,7 +33,7 @@
             <div class="card-body box-profile">
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle"
-                     src="{{ asset('dist/img/user2-160x160.jpg')}}"
+                     src="{{ asset('images')}}/{{$student->profileImage }}" style="max-width:100px;"
                      alt="User profile picture">
               </div>
 

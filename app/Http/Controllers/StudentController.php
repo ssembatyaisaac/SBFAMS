@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Database\Seeders\SuperUserSeeder;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -48,10 +49,15 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+       
         //Store Student
-        $course_id = Course::firstWhere('name', $request->input('course'))->id;
+       $course_id = Course::firstWhere('name', $request->input('course'))->id;
+
+       
+      
 
         $user = User::create([
+            
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone_1' => $request->input('phone_1'),
@@ -70,22 +76,32 @@ class StudentController extends Controller
             'mother_name' => $request->input('mother_name'),
             'mother_contact' => $request->input('mother_contact'),
             'password' => Hash::make($request->input('password')),
-            
+          
         ]);
 
-        $student = Student::create([
-            'user_id' => $user->id,
-            'intake' => $request->input('intake'),
-            'course_id' => $course_id,
-            'optional_course' => $request->input('optional_course'),
-            'delivery' => $request->input('delivery'),
-            'sponsorship' => $request->input('sponsorship'),
+        $user_id =  $user->id;
+        $intake = $request->intake;
+        $course_id = $course_id;
+        $optional_course = $request->optional_course;
+        $delivery = $request->delivery;
+        $sponsorship = $request->sponsorship;
+        $image = $request->file('file');
+        $imageName = time().'.'.$image->extension();
+        $image->move(public_path('images'),$imageName);
 
-        ]);
-
+        $student = new Student();
+        $student->user_id = $user_id;
+        $student->intake = $intake;
+        $student->course_id = $course_id;
+        $student->optional_course = $optional_course;
+        $student->delivery = $delivery;
+        $student->sponsorship = $sponsorship;
+        $student->profileImage = $imageName;
         $student->save();
+        return back()->with('student_added','student record has been inserted');
+
         //dd($student);
-        return redirect()->route('student.create');
+        return redirect()->route('student.create')->with('Success','Student created successfully.');
     }
 
     /**
@@ -143,6 +159,7 @@ class StudentController extends Controller
         $user->father_contact = $request->input('father_contact');
         $user->mother_name = $request->input('mother_name');
         $user->mother_contact = $request->input('mother_contact');
+        $user->image = $request->file('image');
         $user->password = Hash::make($request->input('password'));
 
         $user->update();
@@ -153,10 +170,21 @@ class StudentController extends Controller
         $student->delivery = $request->input('delivery');
         $student->sponsorship = $request->input('sponsorship');
 
+        if ($image =$request->file('image')){
+            $destinationPath = 'image/';
+            $profileImage = date('YmdHis') .".". $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] ="$profileImage";        
+        }else{
+            unset($input['image']);
+        }
+
+
+
         $student->update();
 
         return redirect()->route('student.index')
-            ->with('success', 'Product updated successfully.');
+            ->with('success', 'Student updated successfully.');
     }
 
 

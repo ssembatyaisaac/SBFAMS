@@ -8,6 +8,7 @@
     
   </section>
 
+
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -18,7 +19,12 @@
 
         </div>
         <!-- /.card-header -->
-        <form action="{{ route ('student.store') }}" method="post">
+        @if(Session::has('student_added'))
+        <div class ="alert alert-success" role="alert">
+          {{ Session::get('student_added') }}
+        @endif
+        </div>
+        <form action="{{ route ('student.store') }}" enctype="multipart/form-data" method="post">
           @csrf
           <div class="card-body">
             <h5>Choice Of Intake</h5>
@@ -191,7 +197,19 @@
                     <input class="form-check-input" type="radio" name="sponsorship" id="sponsorship" value="Private">
                     <label class="form-check-label">Private</label>
                   </div>
-                </div>
+                 
+               </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                <label for="image" class="col-md-4 col-form-label">Choose Profile Image</label>
+                <input type="file" class="form-control" name="file" onchange="previewFile(this)">
+                <img id="previewImg" alt="profile image" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/>
+
+               
+                  </div>
               </div>
             </div>
             <input type="hidden" name="role" value="Student">
@@ -210,5 +228,17 @@
   </section>
   <!-- /.content -->
 </div>
+<script>
+  function previewFile(input){
+    var file=$("input[type=file]").get(0).files[0];
+    if(file){
+      var reader = new FileReader();
+      reader.onload = function(){
+        $('#previewImg').attr("src",reader.result);
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+  </script>
 <!-- /.content-wrapper -->
 @endsection
