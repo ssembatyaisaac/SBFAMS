@@ -86,8 +86,12 @@ class StudentController extends Controller
         $delivery = $request->delivery;
         $sponsorship = $request->sponsorship;
         $image = $request->file('file');
-        $imageName = time().'.'.$image->extension();
-        $image->move(public_path('images'),$imageName);
+        if ($image == null) {
+            $imageName = 'default.jpg';
+        } else {
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('images'),$imageName);
+        }
 
         $student = new Student();
         $student->user_id = $user_id;
