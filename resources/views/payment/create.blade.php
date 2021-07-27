@@ -24,12 +24,8 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label for="student_name">Name:</label>
-                  <select class="form-control select2" placeholder="Select Student" name="student_name" style="width: 100%;">
-                    @foreach ($students as $student)
-                      <option>{{ $student->user->name }}</option>
-                    @endforeach
-                  </select>
+                  <label for="name">Name:</label>
+                  <input type="text" class="form-control" name="name" id="name" value="{{$student->user->name}}">
                 <div class="form-group">
                   <label for="student_number">Student Number:</label>
                   <input type="text" class="form-control" name="student_number" id="student_number">

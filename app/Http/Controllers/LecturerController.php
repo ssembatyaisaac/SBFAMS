@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SuperUser;
-use App\Models\User;
-use App\Models\Course;
-use App\Models\Student;
-use App\Models\Announcement;
+use App\Models\Lecturer;
 use Illuminate\Http\Request;
 
-class SuperUserController extends Controller
+class LecturerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +14,7 @@ class SuperUserController extends Controller
      */
     public function index()
     {
-        $students = User::where('role', 'Student')->get();
-        $accountants = User::where('role', 'Accountant')->get();
-        $courses = Course::all();
-        $admins = User::where('role', 'Admin')->get();
-        $announcements = Announcement::latest()->get();
-        return view('superUser.index', compact('students','accountants','courses','admins', 'announcements'));
+        //
     }
 
     /**
@@ -50,10 +41,10 @@ class SuperUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SuperUser  $superUser
+     * @param  \App\Models\Lecturer  $lecturer
      * @return \Illuminate\Http\Response
      */
-    public function show(SuperUser $superUser)
+    public function show(Lecturer $lecturer)
     {
         //
     }
@@ -61,10 +52,10 @@ class SuperUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SuperUser  $superUser
+     * @param  \App\Models\Lecturer  $lecturer
      * @return \Illuminate\Http\Response
      */
-    public function edit(SuperUser $superUser)
+    public function edit(Lecturer $lecturer)
     {
         //
     }
@@ -73,10 +64,10 @@ class SuperUserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SuperUser  $superUser
+     * @param  \App\Models\Lecturer  $lecturer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SuperUser $superUser)
+    public function update(Request $request, Lecturer $lecturer)
     {
         //
     }
@@ -84,10 +75,10 @@ class SuperUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SuperUser  $superUser
+     * @param  \App\Models\Lecturer  $lecturer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SuperUser $superUser)
+    public function destroy(Lecturer $lecturer)
     {
         //
     }

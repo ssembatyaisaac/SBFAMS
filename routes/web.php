@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AccountantController;
 use App\Http\Controllers\AdminController;
+use App\Models\Student;
 use App\Http\Controllers\SuperUserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\AnnouncementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,10 @@ Route::group(['middleware'=>['auth']], function(){
     Route::resource('course', CourseController::class);
     Route::resource('payment', PaymentController::class);
     Route::resource('registration', RegistrationController::class);
+    Route::resource('announcement', AnnouncementController::class);
+    Route::get('/student/{student}/pay', function(Student $student){
+        return view('payment.create', compact('student'));
+    })->name('pay');
 });
 
 

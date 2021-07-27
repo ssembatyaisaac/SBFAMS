@@ -30,6 +30,11 @@ class PaymentController extends Controller
         return view('payment.create', compact('students'));
     }
 
+    public function pay(Student $student)
+    {
+        return view('payment.create', compact($student));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

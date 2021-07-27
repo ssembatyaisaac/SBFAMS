@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\Student;
 use App\Models\Accountant;
 use App\Models\Admin;
+use App\Models\Announcement;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;

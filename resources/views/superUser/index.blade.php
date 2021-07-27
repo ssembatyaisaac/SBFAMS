@@ -46,7 +46,7 @@
 
                 <p>Accountants</p>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('accountant.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
             </div>
             <!-- ./col -->
@@ -58,7 +58,7 @@
 
                 <p>Admins</p>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('admin.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
             </div>
             <!-- ./col -->
@@ -70,7 +70,7 @@
 
                 <p>Courses</p>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('course.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
             </div>
             <!-- ./col -->
@@ -79,43 +79,64 @@
         <!-- Main row -->
         <div class="row">
             <!-- Left col -->
-            <section class="col-lg-7 connectedSortable">
-                
-            </section>
-            <!-- /.Left col -->
-            <!-- right col (We are only adding the ID to make the widgets sortable)-->
-            <section class="col-lg-5 connectedSortable">
-            <p>Anouncements</p>
-            <!-- Map card -->
-            <div class="card bg-gradient-primary">
-                <div class="card-header border-0">
-                <h3 class="card-title">
-                    <i class="fas fa-map-marker-alt mr-1"></i>
-                    Orientation Week
-                </h3>
-                <!-- card tools -->
-                <div class="card-tools">
-                    <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                    </button>
-                </div>
-                <!-- /.card-tools -->
-                </div>
-                <div class="card-body">
-                
-                </div>
-                <!-- /.card-body-->
-                <div class="card-footer bg-transparent">
-                <div class="row">
-                    
-                </div>
-                <!-- /.row -->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Create Announcement
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" enctype="multipart/form-data" id="upload-file" action="{{ route('announcement.store') }}" >
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="course">Title:</label>
+                                        <input type="text" class="form-control" name="title" id="title">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="file" name="file" placeholder="Choose file" id="file">
+                                            @error('file')
+                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                            @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                                </div>
+                            </div>     
+                        </form>
+                    </div>
                 </div>
             </div>
-            <!-- /.card -->
+            <!-- /.col -->
+            
+            <div class="col-md-6">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                        <i class="fas fa-bullhorn"></i>
+                        Announcements
+                        </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        @foreach ($announcements as $announcement)
+                            <div class="callout callout-danger">
+                                <h5>{{$announcement->title}}</h5>
+                                <p><a class="btn btn-default" href="files/{{$announcement->name}}"><i class="fas fa-file-download"> Read Details here</i></a></p>
+                                <p>{{date_format($announcement->created_at,'D M Y')}}</p>
+                            
+                            </div>
+                        @endforeach
+                    </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
 
-            </section>
-            <!-- right col -->
         </div>
         <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
