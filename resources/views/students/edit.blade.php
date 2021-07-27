@@ -191,6 +191,19 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                  <label for="image" class="col-md-4 col-form-label">Choose Profile Image</label>
+                  <div><input type="file" name="file" onchange="previewFile(this)"></div>
+                  <div><img id="previewImg" alt="profile image" src="{{ asset('images') }}/{{ $student->profileImage }}" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/></div>
+                  @if($errors->has('profileImage'))
+                     <strong>{{ $errors->first('profileImage') }}</strong>
+                  @endif
+                 
+                    </div>
+                </div>
+              </div>
               
               <button class="btn btn-secondary" type="submit">Update</button>
             </div>
@@ -205,5 +218,18 @@
     </section>
     <!-- /.content -->
   </div>
+  <script>
+    function previewFile(input){
+      var file=$("input[type=file]").get(0).files[0];
+      if(file){
+        var reader = new FileReader();
+        reader.onload = function(){
+          $('#previewImg').attr("src",reader.result);
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+    </script>
+ 
   <!-- /.content-wrapper -->
 @endsection
