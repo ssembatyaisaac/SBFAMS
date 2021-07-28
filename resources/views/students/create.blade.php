@@ -20,8 +20,10 @@
         </div>
         <!-- /.card-header -->
         @if(Session::has('student_added'))
-        <div class ="alert alert-success" role="alert">
-          {{ Session::get('student_added') }}
+        <div class="alert alert-primary" role="alert">
+         <div> Student has been succesfully added.</div>
+          <div><a href="{{ route('superUser')}}" class="alert-link">Go Home</a></div>
+        </div>
         @endif
         </div>
         <form action="{{ route ('student.store') }}" enctype="multipart/form-data" method="post">
@@ -205,9 +207,11 @@
               <div class="col-md-12">
                 <div class="form-group">
                 <label for="image" class="col-md-4 col-form-label">Choose Profile Image</label>
-                <input type="file" class="form-control" name="file" onchange="previewFile(this)">
-                <img id="previewImg" alt="profile image" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/>
-
+                <div><input type="file" name="file" onchange="previewFile(this)"></div>
+                <div><img id="previewImg" alt="profile image" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/></div>
+                @if($errors->has('profileImage'))
+                   <strong>{{ $errors->first('profileImage') }}</strong>
+                @endif
                
                   </div>
               </div>

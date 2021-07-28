@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-orange navbar-light">
   <!-- Left navbar links -->
   <ul class="navbar-nav">
     <li class="nav-item">
@@ -16,7 +16,7 @@
         <a href="{{ route('accountant.show', ['accountant' => session('user')])}}" class="nav-link">Home</a> 
       @endif
       @if (Auth::user()->role == 'Super User')
-        <a href="{{ route('superUser')}}" class="nav-link">Home</a> 
+        <a href="{{ route('superUser')}}" class="nav-link" >Home</a> 
       @endif
     </li>
     <li class="nav-item d-none d-sm-inline-block">

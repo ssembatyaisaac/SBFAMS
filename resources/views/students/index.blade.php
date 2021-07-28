@@ -34,6 +34,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
+                    
                     <th>Student Name</th>
                     <th>Email</th>
                     <th>Course</th>
