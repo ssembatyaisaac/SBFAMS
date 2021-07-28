@@ -16,6 +16,7 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->enum('intake', ['January', 'May', 'September']);
+            $table->string('profileImage')->default('');
             $table->foreignId('user_id');
             $table->foreignId('course_id');
             $table->string('optional_course')->default('');

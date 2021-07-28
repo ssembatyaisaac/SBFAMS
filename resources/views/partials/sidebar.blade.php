@@ -36,6 +36,14 @@
              with font-awesome or any other icon font library -->
         @if (Auth::user()->role == 'Student')
         <li class="nav-item">
+          <a href="{{ route('student.show', ['student' => session('user')]) }}" class="nav-link {{ (request()->is('student*')) ? 'active' : '' }}">
+            <p>
+              Profile
+            </p>
+          </a>
+        </li>        
+      
+        <li class="nav-item">
           <a href="{{ route('registration.index') }}" class="nav-link {{ (request()->is('registration*')) ? 'active' : '' }}">
             <p>
               Registration
@@ -49,13 +57,7 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="{{ route('student.show', ['student' => session('user')]) }}" class="nav-link {{ (request()->is('student*')) ? 'active' : '' }}">
-            <p>
-              Profile
-            </p>
-          </a>
-        </li>         
+        
         @else
         <li class="nav-item">
           <a href="{{ route('student.index') }}" class="nav-link {{ (request()->is('student*')) ? 'active' : '' }}">
