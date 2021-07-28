@@ -29,7 +29,7 @@
         <div class="col-md-3">
 
           <!-- Profile Image -->
-          <div class="card" style="border-top: 5px solid orange; " >
+          <div class="card" style="border-top: 5px solid rgb(240, 203, 135); " >
             <div class="card-body box-profile">
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle"
