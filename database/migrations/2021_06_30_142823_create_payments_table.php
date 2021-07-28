@@ -18,7 +18,6 @@ class CreatePaymentsTable extends Migration
             $table->bigInteger('amount')->default(0);
             $table->foreignId('registration_id');
             $table->foreignId('accountant_id');
-            $table->foreignId('course_id');
             $table->string('receipt_id')->default('');
             $table->timestamps();
         });

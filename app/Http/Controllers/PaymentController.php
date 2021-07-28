@@ -48,7 +48,6 @@ class PaymentController extends Controller
             'academic_year' => $request->input('academic_year'),
             'semster' => $request->input('semster'),
             'currency' => $request->input('currency'),
-
         ]);
 
         return redirect()->route('payment.create');
@@ -73,7 +72,7 @@ class PaymentController extends Controller
      */
     public function edit(Payment $payment)
     {
-        //
+        return view('payment.edit', compact('payment'));
     }
 
     /**
@@ -85,7 +84,9 @@ class PaymentController extends Controller
      */
     public function update(Request $request, Payment $payment)
     {
-        //
+        $payment->amount = $payment->amount + $request->input('amount');
+        $payment->update();
+        return redirect()->route('student.index', ['student' => $payment->registration->student]);
     }
 
     /**

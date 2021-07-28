@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Registration;
 use App\Models\Course;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -24,7 +25,12 @@ class StudentController extends Controller
         $this->authorize('viewAny', Student::class);
 
         $students = Student::all();
-        return view('students.index', compact('students'));
+        $registrations = Registration::where([
+            ['academic_year', session('academic_year')],
+            ['semster', session('semster')],
+        ])->get();
+
+        return view('students.index', compact('students', 'registrations'));
     }
 
     /**
@@ -98,7 +104,8 @@ class StudentController extends Controller
     {
         $this->authorize('view', $student);
         //Show Student
-        return view('students.show', compact('student'));
+        $registrations = Registration::where('student_id', $student->id)->get();
+        return view('students.show', compact('student', 'registrations'));
     }
 
     /**

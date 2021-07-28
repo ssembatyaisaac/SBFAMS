@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Registration;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -41,6 +42,14 @@ class RegistrationController extends Controller
             'student_id' => $request->input('student'),
             'academic_year' => session('academic_year'),
             'semster' => session('semster'),
+        ]);
+
+        $payment = Payment::create([
+            'registration_id' =>$registration->id,
+            'amount' => 0,
+            'course_id' => $registration->student->course->id,
+            'receipt_id' => '',
+            'accountant_id' => '',
         ]);
 
         return redirect()->route('registration.index');

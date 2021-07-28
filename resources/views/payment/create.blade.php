@@ -25,10 +25,10 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label for="name">Name:</label>
-                  <input type="text" class="form-control" name="name" id="name" value="{{$student->user->name}}">
+                  <input type="text" class="form-control" name="name" id="name" value="{{$student->user->name}}" disabled>
                 <div class="form-group">
                   <label for="student_number">Student Number:</label>
-                  <input type="text" class="form-control" name="student_number" id="student_number">
+                  <input type="text" class="form-control" name="student_number" id="student_number" value="20/BIT/003" disabled>
                 </div>
                 <div class="form-group">
                   <label for="amount">Amount:</label>
@@ -36,16 +36,16 @@
                 </div>
                 <div class="form-group">
                   <label for="academic_year">Academic Year:</label>
-                  <input type="text" class="form-control" name="academic_year" id="academic_year">
+                  <input type="text" class="form-control" name="academic_year" id="academic_year" value="{{session('academic_year')}}" disabled>
                 </div>
                 <div class="form-group">
                   <label for="semster">Semster:</label>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="semster" id="name" value="1">
+                    <input class="form-check-input" type="radio" name="semster" id="name" value=1 {{ session('semster') == 1 ? 'checked' : ''}} disabled>
                     <label class="form-check-label">I</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="semster" id="name" value="2">
+                    <input class="form-check-input" type="radio" name="semster" id="name" value=2 {{ session('semster') == 2 ? 'checked' : ''}} disabled>
                     <label class="form-check-label">II</label>
                   </div>
                 </div>

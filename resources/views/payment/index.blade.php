@@ -8,8 +8,9 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Payments</h1>
-            <a class="btn btn-primary" href="{{ route('payment.create') }}">Register Payments</a>
+          @if (auth()->user()->role != 'Accountant')
+            <a href="{{ route('student.create') }}"><button class="btn btn-primary">Register Student</button></a>
+          @endif
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -26,42 +27,52 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Payments</h3>
+                <h3 class="card-title">Registered Students for Year {{session('academic_year') }} Semster {{session('semster')}}</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Academic Year</th>
-                    <th>Semster</th>
+                    <th>Student Name</th>
+                    <th>Email</th>
                     <th>Course</th>
-                    <th>Amount (UGX)</th>
-                    <th>Balance (UGX)</th>
+                    <th>Delivery</th>
+                    <th>Intake</th>
+                    <th>Balance</th>
                     <th>Status</th>
-                    <th>Receipt ID</th>
                   </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                        <td>2021/2022</td>
-                        <td> I </td>
-                        <td>Software Engineering</td>
-                        <td> 450,000 </td>
-                        <td> 200,000 </td>
-                        <td> Partial Payment</td>
-                        <td> 453988 </td>
-                    </tr>
+                    @foreach ($payments as $payment)
+                        <tr>
+                            <td><a href="{{ route('student.show' ,['student'=>$payment->registration->student]) }}">{{ $payment->registration->student->user->name }}</a></td>
+                            <td>{{ $payment->registration->student->user->email }}</td>
+                            <td>{{ $payment->registration->student->course->name }}</td>
+                            <td>{{ $payment->registration->student->delivery }}</td>
+                            <td>{{ $payment->registration->student->intake }}</td>
+                            <td>{{ $payment->registration->student->course->fees - $payment->amount }}</td>
+                            <td>
+                              @if (($payment->registration->student->course->fees - $payment->amount) == 0)
+                                <button disabled class="btn btn-default">Fully Paid</button>
+                              @elseif ($payment->amount == 0)
+                                <a href="{{ route('payment.edit', ['payment' => $payment]) }}"  class="btn btn-danger">Not Paid</a>
+                              @else
+                              <a href="{{ route('payment.edit', ['payment' => $payment]) }}"  class="btn btn-primary">Partially Paid</a>
+                              @endif
+                            </td>
+                        </tr>
+                    @endforeach
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>Academic Year</th>
-                    <th>Semster</th>
+                    <th>Student Name</th>
+                    <th>Email</th>
                     <th>Course</th>
-                    <th>Amount (UGX)</th>
-                    <th>Balance (UGX)</th>
+                    <th>Delivery</th>
+                    <th>Intake</th>
+                    <th>Balance</th>
                     <th>Status</th>
-                    <th>Receipt ID</th>
                   </tr>
                   </tfoot>
                 </table>

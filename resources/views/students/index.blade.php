@@ -8,7 +8,9 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
+          @if (auth()->user()->role != 'Accountant')
             <a href="{{ route('student.create') }}"><button class="btn btn-primary">Register Student</button></a>
+          @endif
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
