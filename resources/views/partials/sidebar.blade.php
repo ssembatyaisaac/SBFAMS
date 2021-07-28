@@ -43,7 +43,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('payment.index') }}" class="nav-link {{ (request()->is('accounts*')) ? 'active' : '' }}">
+          <a href="{{ route('payment.index') }}" class="nav-link {{ (request()->is('payment*')) ? 'active' : '' }}">
             <p>
               Payments
             </p>
@@ -66,7 +66,7 @@
         </li>
         @if (Auth::user()->role == 'Super User' || Auth::user()->role == 'Admin')
         <li class="nav-item">
-          <a href="{{ route('accountant.index') }}" class="nav-link {{ (request()->is('accounts*')) ? 'active' : '' }}">
+          <a href="{{ route('accountant.index') }}" class="nav-link {{ (request()->is('accountant*')) ? 'active' : '' }}">
             <p>
               Accountants
             </p>
