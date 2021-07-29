@@ -56,7 +56,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
-  <div class="card" style="border-top:5px solid rgb(248, 163, 6);">
+  <div class="card" style="border-top:5px solid #f4a02e;">
     <div class="card-header text-center">
       <div><img src="{{ asset('dist/img/AdminLTELogo.png')}}" style="height:70px"></div>
     </div>

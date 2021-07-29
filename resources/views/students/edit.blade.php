@@ -18,7 +18,7 @@
 
           </div>
           <!-- /.card-header -->
-          <form action="{{ route ('student.update', ['student'=>$student])}}" method="post">
+          <form action="{{ route ('student.update', ['student'=>$student])}}" enctype="multipart/form-data" method="post">
             @csrf
             @method('PUT')
             <div class="card-body">
@@ -204,6 +204,8 @@
                     </div>
                 </div>
               </div>
+              <input type="hidden" name="role" value="Student">
+              <input type="hidden" name="password" value="secret">
               
               <button class="btn btn-secondary" type="submit">Update</button>
             </div>

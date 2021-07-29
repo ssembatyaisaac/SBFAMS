@@ -193,7 +193,8 @@ class StudentController extends Controller
         $student->delivery = $delivery;
         $student->sponsorship = $sponsorship;
         $student->profileImage = $imageName;
-
+         
+        
         $student->update();
 
         return redirect()->route('student.index')
