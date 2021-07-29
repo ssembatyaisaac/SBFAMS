@@ -56,6 +56,7 @@ class StudentController extends Controller
     public function store(Request $request)
     {
        
+       
         //Store Student
        $course_id = Course::firstWhere('name', $request->input('course'))->id;
 
@@ -110,6 +111,10 @@ class StudentController extends Controller
         $student->save();
         return back()->with('student_added','student record has been inserted');
 
+
+        $data = request()->validate([
+            'profileImage'=> 'required',
+        ]);
         //dd($student);
         return redirect()->route('student.create')->with('Success','Student created successfully.');
     }
@@ -152,7 +157,7 @@ class StudentController extends Controller
         //Update Student Record      
         $id = $student->user_id;
         $user = User::find($id);
-
+        
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->phone_1 = $request->input('phone_1');
@@ -170,27 +175,24 @@ class StudentController extends Controller
         $user->father_contact = $request->input('father_contact');
         $user->mother_name = $request->input('mother_name');
         $user->mother_contact = $request->input('mother_contact');
-        $user->image = $request->file('image');
+        
         $user->password = Hash::make($request->input('password'));
 
         $user->update();
 
-        $student->intake = $request->input('intake');
-        $student->course = $request->input('course');
-        $student->optional_course = $request->input('optional_course');
-        $student->delivery = $request->input('delivery');
-        $student->sponsorship = $request->input('sponsorship');
+        $intake = $request->intake;
+        $optional_course = $request->optional_course;
+        $delivery = $request->delivery;
+        $sponsorship = $request->sponsorship;
+        $image = $request->file('file');
+        $imageName = time().'.'.$image->extension();
+        $image->move(public_path('images'),$imageName);
 
-        if ($image =$request->file('image')){
-            $destinationPath = 'image/';
-            $profileImage = date('YmdHis') .".". $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] ="$profileImage";        
-        }else{
-            unset($input['image']);
-        }
-
-
+        $student->intake = $intake;
+        $student->optional_course = $optional_course;
+        $student->delivery = $delivery;
+        $student->sponsorship = $sponsorship;
+        $student->profileImage = $imageName;
 
         $student->update();
 
