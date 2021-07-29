@@ -8,7 +8,6 @@
     
   </section>
 
-
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -22,8 +21,8 @@
         @if(Session::has('student_added'))
         <div class ="alert alert-success" role="alert">
           {{ Session::get('student_added') }}
-        @endif
         </div>
+        @endif 
         <form action="{{ route ('student.store') }}" enctype="multipart/form-data" method="post">
           @csrf
           <div class="card-body">
@@ -83,6 +82,13 @@
                 <div class="form-group">
                   <label for="course">Name:</label>
                   <input type="text" class="form-control" name="name" id="name">
+                </div>
+                <div class="form-group">
+                  <label for="image">Choose Profile Image</label>
+                  <div class="row">
+                    <input type="file" class="btn btn-default col-md-12" name="file" onchange="previewFile(this)">
+                    <img id="previewImg" alt="profile image" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="gender">Gender:</label>
@@ -197,19 +203,7 @@
                     <input class="form-check-input" type="radio" name="sponsorship" id="sponsorship" value="Private">
                     <label class="form-check-label">Private</label>
                   </div>
-                 
-               </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                <label for="image" class="col-md-4 col-form-label">Choose Profile Image</label>
-                <input type="file" class="form-control" name="file" onchange="previewFile(this)">
-                <img id="previewImg" alt="profile image" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/>
-
-               
-                  </div>
+                </div>
               </div>
             </div>
             <input type="hidden" name="role" value="Student">
