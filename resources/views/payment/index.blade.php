@@ -35,10 +35,11 @@
                   <thead>
                   <tr>
                     <th>Student Name</th>
-                    <th>Email</th>
                     <th>Course</th>
                     <th>Delivery</th>
                     <th>Intake</th>
+                    <th>Current Year</th>
+                    <th>Semster</th>
                     <th>Balance</th>
                     <th>Status</th>
                   </tr>
@@ -47,10 +48,11 @@
                     @foreach ($payments as $payment)
                         <tr>
                             <td><a href="{{ route('student.show' ,['student'=>$payment->registration->student]) }}">{{ $payment->registration->student->user->name }}</a></td>
-                            <td>{{ $payment->registration->student->user->email }}</td>
                             <td>{{ $payment->registration->student->course->name }}</td>
                             <td>{{ $payment->registration->student->delivery }}</td>
                             <td>{{ $payment->registration->student->intake }}</td>
+                            <td>{{ $payment->registration->academic_year }}</td>
+                            <td>{{ $payment->registration->semster }}</td>
                             <td>{{ $payment->registration->student->course->fees - $payment->amount }}</td>
                             <td>
                               @if (($payment->registration->student->course->fees - $payment->amount) == 0)
@@ -67,10 +69,11 @@
                   <tfoot>
                   <tr>
                     <th>Student Name</th>
-                    <th>Email</th>
                     <th>Course</th>
                     <th>Delivery</th>
                     <th>Intake</th>
+                    <th>Current Year</th>
+                    <th>Semster</th>
                     <th>Balance</th>
                     <th>Status</th>
                   </tr>

@@ -9,7 +9,6 @@
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>Payments</h1>
-          <a class="btn btn-primary" href="{{ route('pay', compact('student')) }}">Register Payments</a>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -136,7 +135,7 @@
 
               <strong></i>Academic Year</strong>
 
-              <p class="text-muted">2021/2022</p>
+              <p class="text-muted">{{ $student->academic_year }}</p>
 
               <hr>
 

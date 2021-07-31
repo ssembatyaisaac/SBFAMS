@@ -41,15 +41,13 @@
                 </p>
                 <form action="{{ route('registration.store') }}" method="post" style="display: flex; justify-content: center;">
                   @csrf
-                  @if (count($registrations) != 0) <!--available registration-->
-                    @foreach ($registrations as $registration)
-                      @if ($registration->academic_year == session('academic_year') & $registration->semster == session('semster'))
-                        <button class="btn btn-default" disabled="disabled">Already Registered</button>
-                      @else
-                        <input type="hidden" name="student" value={{ Auth::user()->student->id }}>
-                        <button class="btn btn-primary" type="submit">Register</button>
-                      @endif
-                    @endforeach
+                  @if ($registration != null) <!--available registration-->
+                    @if ($registration->academic_year == session('academic_year') & $registration->semster == session('semster'))
+                      <button class="btn btn-default" disabled="disabled">Already Registered</button>
+                    @else
+                      <input type="hidden" name="student" value={{ Auth::user()->student->id }}>
+                      <button class="btn btn-primary" type="submit">Register</button>
+                    @endif
                   @else
                     <input type="hidden" name="student" value={{ Auth::user()->student->id }}>
                     <button class="btn btn-primary" type="submit">Register</button>

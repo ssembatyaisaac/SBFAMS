@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Models\Registration;
 use App\Models\Course;
+use App\Models\Payment;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Database\Seeders\SuperUserSeeder;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class StudentController extends Controller
 {
@@ -55,16 +57,10 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-       
-       
         //Store Student
        $course_id = Course::firstWhere('name', $request->input('course'))->id;
 
-       
-      
-
         $user = User::create([
-            
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'phone_1' => $request->input('phone_1'),
@@ -100,8 +96,10 @@ class StudentController extends Controller
             $image->move(public_path('images'),$imageName);
         }
 
+        //Save Student Details
         $student = new Student();
         $student->user_id = $user_id;
+        $student->academic_year = session('academic_year');
         $student->intake = $intake;
         $student->course_id = $course_id;
         $student->optional_course = $optional_course;
@@ -109,14 +107,22 @@ class StudentController extends Controller
         $student->sponsorship = $sponsorship;
         $student->profileImage = $imageName;
         $student->save();
-        return back()->with('student_added','student record has been inserted');
-
-
-        $data = request()->validate([
-            'profileImage'=> 'required',
+        
+        $registration = Registration::create([
+            'student_id' => $student->id,
+            'academic_year' => session('academic_year'),
+            'semster' => 1,
         ]);
-        //dd($student);
-        return redirect()->route('student.create')->with('Success','Student created successfully.');
+
+        $payment = Payment::create([
+            'registration_id' =>$registration->id,
+            'amount' => 0,
+            'course_id' => $registration->student->course->id,
+            'receipt_id' => '',
+            'accountant_id' => 1,
+        ]);
+
+        return back()->with('student_added','student record has been inserted');
     }
 
     /**
@@ -128,6 +134,7 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         $this->authorize('view', $student);
+        
         //Show Student
         $registrations = Registration::where('student_id', $student->id)->get();
         return view('students.show', compact('student', 'registrations'));
@@ -170,7 +177,6 @@ class StudentController extends Controller
         $user->spouse_contact = $request->input('spouse_contact');
         $user->disability  = $request->input('disability');
         $user->nature_of_disability = $request->input('nature_of_disability');
-        $user->role = $request->input('role');
         $user->father_name = $request->input('father_name');
         $user->father_contact = $request->input('father_contact');
         $user->mother_name = $request->input('mother_name');
@@ -195,8 +201,9 @@ class StudentController extends Controller
         $student->profileImage = $imageName;
 
         $student->update();
+        
 
-        return redirect()->route('student.index')
+        return redirect()->route('student.show')
             ->with('success', 'Student updated successfully.');
     }
 
@@ -214,5 +221,50 @@ class StudentController extends Controller
         User::find($id)->delete();
         $student->delete();
         return redirect()->route('student.index');
+    }
+
+    public function semster(Student $student)
+    {
+        $current_date = Carbon::now();
+        if ($student->intake == 'January') {
+            $sem_1 = new Carbon('first day of January');
+            $sem_2 = new Carbon('first day of July');
+            if ($current_date >= $sem_1 & $current_date < $sem_2) {
+                $academic_year = $sem_1->year."/".$sem_2->addYear(1)->year;
+                $semster = 1;
+                return [$academic_year, $semster];
+            } else {
+                $academic_year = $current_date->year."/".$current_date->addYear(1)->year;
+                $semster = 2;
+                return [$academic_year, $semster];
+            }
+
+        } else if ($student->intake == 'May') {
+            $sem_1 = new Carbon('first day of May');
+            $sem_2 = new Carbon('first day of November');
+            if ($current_date >= $sem_1 & $current_date < $sem_2) {
+                $academic_year = $sem_1->year."/".$sem_1->addYear(1)->year;
+                $semster = 1;
+                return [$academic_year, $semster];
+            } else {
+                $academic_year = $current_date->year."/".$current_date->addYear(1)->year;
+                $semster = 2;
+                return [$academic_year, $semster];
+            }
+
+        } else if ($student->intake == 'September') {
+            $sem_1 = new Carbon('first day of September');
+            $sem_2 = (new Carbon('first day of February'))->addYear(1);
+            if ($current_date >= $sem_1 & $current_date < $sem_2) {
+                $academic_year = $sem_1->year."/".$sem_1->addYear(1)->year;
+                $semster = 1;
+                return [$academic_year, $semster];
+            } else {
+                $academic_year = $sem_2->subYear(1)->year."/".$sem_2->year;
+                $semster = 2;
+                return [$academic_year, $semster];
+            }
+
+        }
     }
 }

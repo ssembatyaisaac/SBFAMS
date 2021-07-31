@@ -18,7 +18,7 @@
 
           </div>
           <!-- /.card-header -->
-          <form action="{{ route ('student.update', ['student'=>$student])}}" method="post">
+          <form action="{{ route ('student.update', ['student'=>$student])}}" enctype="multipart/form-data" method="post">
             @csrf
             @method('PUT')
             <div class="card-body">

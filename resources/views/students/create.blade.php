@@ -15,15 +15,12 @@
       <div class="card card-default">
         <div class="card-header">
           <h3 class="card-title">Register Student</h3>
-
         </div>
         <!-- /.card-header -->
         @if(Session::has('student_added'))
-        <div class="alert alert-primary" role="alert">
-         <div> Student has been succesfully added.</div>
-          <div><a href="{{ route('superUser')}}" class="alert-link">Go Home</a></div>
-        </div>
-        @endif
+        <div class="alert alert-success" role="alert">
+          <div> Student has been succesfully added.</div>
+          </div>
         </div>
         @endif 
         <form action="{{ route ('student.store') }}" enctype="multipart/form-data" method="post">
@@ -85,16 +82,6 @@
                 <div class="form-group">
                   <label for="course">Name:</label>
                   <input type="text" class="form-control" name="name" id="name">
-                </div>
-                <div class="form-group">
-                  <label for="image">Choose Profile Image</label>
-                  <div class="row">
-                    <input type="file" class="btn btn-default col-md-12" name="file" onchange="previewFile(this)">
-                    <img id="previewImg" alt="profile image" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/>
-                    @if($errors->has('profileImage'))
-                      <strong>{{ $errors->first('profileImage') }}</strong>
-                    @endif
-                  </div>
                 </div>
                 <div class="form-group">
                   <label for="gender">Gender:</label>
@@ -210,10 +197,21 @@
                     <label class="form-check-label">Private</label>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="image">Choose Profile Image</label>
+                  <div class="row">
+                    <input type="file" class="btn btn-default col-md-12" name="file" onchange="previewFile(this)">
+                    <img id="previewImg" alt="profile image" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/>
+                    @if($errors->has('profileImage'))
+                      <strong>{{ $errors->first('profileImage') }}</strong>
+                    @endif
+                  </div>
+                </div>
               </div>
             </div>
             <input type="hidden" name="role" value="Student">
             <input type="hidden" name="password" value="secret">
+            <input type="hidden" name="academic_year" value="{{session('academic_year')}}">
             
             <button class="btn btn-primary" type="submit">Register</button>
           </div>

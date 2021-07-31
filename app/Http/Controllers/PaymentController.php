@@ -86,7 +86,7 @@ class PaymentController extends Controller
     {
         $payment->amount = $payment->amount + $request->input('amount');
         $payment->update();
-        return redirect()->route('student.index', ['student' => $payment->registration->student]);
+        return redirect()->route('payment.index', ['student' => $payment->registration->student]);
     }
 
     /**
