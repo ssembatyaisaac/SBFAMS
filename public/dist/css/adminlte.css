@@ -13527,7 +13527,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 .sidebar-dark-primary .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,
 .sidebar-light-primary .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {
-  border-color: #df9b1e;
+  border-color: #007bff;
 }
 
 .sidebar-dark-secondary .nav-sidebar > .nav-item > .nav-link.active,
