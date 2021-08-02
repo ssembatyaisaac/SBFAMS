@@ -39,15 +39,4 @@
   <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   <link href="{{ asset('css/global.css') }}" type="text/css" rel="stylesheet">
-<style>
-  body{
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url("/jpg/image2.jpg");
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-    background-size: 100% 100%;
-    
-
-  }
-  
-</style>
 </head>

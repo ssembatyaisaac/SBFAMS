@@ -17,9 +17,10 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        $semster = (new StudentController)->semster(auth()->user()->student)[1];
+        $academic_year = (new StudentController)->semster(auth()->user()->student)[0]; //Getting Student's academic year
+        $semster = (new StudentController)->semster(auth()->user()->student)[1]; //Getting Student's semster
         $registration = Registration::where('student_id', auth()->user()->student->id)->latest()->first();
-        return view('registration.index', compact('registration'));
+        return view('registration.index', compact('registration', 'semster', 'academic_year'));
     }
 
     /**
@@ -51,7 +52,6 @@ class RegistrationController extends Controller
             'amount' => 0,
             'course_id' => $registration->student->course->id,
             'receipt_id' => '',
-            'accountant_id' => 1,
         ]);
 
         return redirect()->route('registration.index');

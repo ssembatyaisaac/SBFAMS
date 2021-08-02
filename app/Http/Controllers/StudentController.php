@@ -140,6 +140,7 @@ class StudentController extends Controller
         return view('students.show', compact('student', 'registrations'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -203,7 +204,7 @@ class StudentController extends Controller
         $student->update();
         
 
-        return redirect()->route('student.show')
+        return redirect()->route('student.show', ['student'=>$student])
             ->with('success', 'Student updated successfully.');
     }
 
