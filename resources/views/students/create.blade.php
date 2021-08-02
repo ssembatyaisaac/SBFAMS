@@ -24,8 +24,8 @@
           <div><a href="{{ route('superUser')}}" class="alert-link">Go Home</a></div>
         </div>
         @endif
-        </div>
-        @endif 
+        
+         
         <form action="{{ route ('student.store') }}" enctype="multipart/form-data" method="post">
           @csrf
           <div class="card-body">
