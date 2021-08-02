@@ -13,7 +13,6 @@ class Payment extends Model
         'amount',
         'registration_id',
         'receipt_id',
-        'accountant_id',
     ];
 
     public function registration(){
