@@ -1,11 +1,23 @@
 @include('partials.header')
+<style>
+  body{
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url("/jpg/image2.jpg");
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-size: 100% 100%;
+    
+
+  }
+  
+</style>
 
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1">{{ config('app.name', 'Laravel') }}</a>
+      <img src="{{ asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8; max-height:60px">
+      
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>

@@ -95,6 +95,8 @@ class StudentController extends Controller
         $image = $request->file('file');
         if ($image == null) {
             $imageName = 'default.jpg';
+            
+        
         } else {
             $imageName = time().'.'.$image->extension();
             $image->move(public_path('images'),$imageName);
@@ -112,11 +114,9 @@ class StudentController extends Controller
         return back()->with('student_added','student record has been inserted');
 
 
-        $data = request()->validate([
-            'profileImage'=> 'required',
-        ]);
+        
         //dd($student);
-        return redirect()->route('student.create')->with('Success','Student created successfully.');
+        
     }
 
     /**
@@ -194,7 +194,8 @@ class StudentController extends Controller
         $student->sponsorship = $sponsorship;
         $student->profileImage = $imageName;
          
-        
+         
+        $student->save();
         $student->update();
 
         return redirect()->route('student.index')
@@ -212,6 +213,7 @@ class StudentController extends Controller
     {
         //Delete Student
         $id = $student->user_id;
+        unlink(public_path('images').'/'.$student->profileImage);
         User::find($id)->delete();
         $student->delete();
         return redirect()->route('student.index');

@@ -18,12 +18,7 @@
 
         </div>
         <!-- /.card-header -->
-        @if(Session::has('student_added'))
-        <div class="alert alert-primary" role="alert">
-         <div> Student has been succesfully added.</div>
-          <div><a href="{{ route('superUser')}}" class="alert-link">Go Home</a></div>
-        </div>
-        @endif
+        
         
          
         <form action="{{ route ('student.store') }}" enctype="multipart/form-data" method="post">
@@ -228,6 +223,10 @@
   </section>
   <!-- /.content -->
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" 
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
 <script>
   function previewFile(input){
     var file=$("input[type=file]").get(0).files[0];
@@ -240,5 +239,13 @@
     }
   }
   </script>
+  @if(Session::has('student_added'))
+    <script>
+      swal("Congratulations!","{!! Session::get('student_added') !!}","success",{
+        button:"OK",
+      })
+    </script>
+    
+  @endif
 <!-- /.content-wrapper -->
 @endsection
