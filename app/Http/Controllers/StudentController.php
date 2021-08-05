@@ -123,6 +123,7 @@ class StudentController extends Controller
         ]);
 
         return back()->with('student_added','student record has been inserted');
+
     }
 
     /**
@@ -191,16 +192,23 @@ class StudentController extends Controller
         $optional_course = $request->optional_course;
         $delivery = $request->delivery;
         $sponsorship = $request->sponsorship;
+        
+        if($request->file('file'))
+        {
         $image = $request->file('file');
         $imageName = time().'.'.$image->extension();
         $image->move(public_path('images'),$imageName);
-
+        $student->profileImage = $imageName;
+        }
+        
         $student->intake = $intake;
         $student->optional_course = $optional_course;
         $student->delivery = $delivery;
         $student->sponsorship = $sponsorship;
-        $student->profileImage = $imageName;
-
+        
+         
+         
+        $student->save();
         $student->update();
         
 
@@ -219,6 +227,8 @@ class StudentController extends Controller
     {
         //Delete Student
         $id = $student->user_id;
+        unlink(public_path('images').'/'.$student->profileImage);
+        
         User::find($id)->delete();
         $student->delete();
         return redirect()->route('student.index');
