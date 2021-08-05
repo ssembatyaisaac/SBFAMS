@@ -34,8 +34,8 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
+                    <th>Student ID</th>
                     <th>Student Name</th>
-                    <th>Email</th>
                     <th>Course</th>
                     <th>Delivery</th>
                     <th>Intake</th>
@@ -46,8 +46,8 @@
                   <tbody>
                     @foreach ($students as $student)
                         <tr>
+                            <td>{{ $student->studentID }}</td>
                             <td><a href="{{ route('student.show' ,['student'=>$student]) }}">{{ $student->user->name }}</a></td>
-                            <td>{{ $student->user->email }}</td>
                             <td>{{ $student->course->name }}</td>
                             <td>{{ $student->delivery }}</td>
                             <td>{{ $student->intake }}</td>
@@ -64,8 +64,8 @@
                   </tbody>
                   <tfoot>
                   <tr>
+                    <th>Student ID</th>
                     <th>Student Name</th>
-                    <th>Email</th>
                     <th>Course</th>
                     <th>Delivery</th>
                     <th>Intake</th>

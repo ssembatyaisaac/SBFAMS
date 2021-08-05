@@ -26,14 +26,13 @@ class StudentController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Student::class);
+        
+        #$intake_students = Student::where('academic_year','2021/2022')
+        #    ->where('intake', 'May')->get()->count();
 
+        //dd(substr('2021/2022', 2, 2));
         $students = Student::all();
-        $registrations = Registration::where([
-            ['academic_year', session('academic_year')],
-            ['semster', session('semster')],
-        ])->get();
-
-        return view('students.index', compact('students', 'registrations'));
+        return view('students.index', compact('students'));
     }
 
     /**
@@ -99,18 +98,19 @@ class StudentController extends Controller
         //Save Student Details
         $student = new Student();
         $student->user_id = $user_id;
-        $student->academic_year = session('academic_year');
         $student->intake = $intake;
+        $student->academic_year = (new StudentController)->semster($student)[0];
         $student->course_id = $course_id;
         $student->optional_course = $optional_course;
         $student->delivery = $delivery;
         $student->sponsorship = $sponsorship;
         $student->profileImage = $imageName;
+        $student->studentID = (new StudentController)->studentID($student);
         $student->save();
         
         $registration = Registration::create([
             'student_id' => $student->id,
-            'academic_year' => session('academic_year'),
+            'academic_year' => $student->academic_year,
             'semster' => 1,
         ]);
 
@@ -226,7 +226,10 @@ class StudentController extends Controller
 
     public function semster(Student $student)
     {
+        $new_year = new Carbon('first day of January');
+        $end_of_year = new Carbon('last day of December');
         $current_date = Carbon::now();
+
         if ($student->intake == 'January') {
             $sem_1 = new Carbon('first day of January');
             $sem_2 = new Carbon('first day of July');
@@ -248,18 +251,25 @@ class StudentController extends Controller
                 $semster = 1;
                 return [$academic_year, $semster];
             } else {
-                $academic_year = $current_date->year."/".$current_date->addYear(1)->year;
+                if ($current_date->month >= $new_year->month) {
+                    $academic_year = $current_date->subYear(1)->year."/".$current_date->year;
+                } else {
+                    $academic_year = $current_date->year."/".$current_date->addYear(1)->year;
+                }
                 $semster = 2;
                 return [$academic_year, $semster];
             }
 
         } else if ($student->intake == 'September') {
             $sem_1 = new Carbon('first day of September');
-            $sem_2 = (new Carbon('first day of February'))->addYear(1);
-            if ($current_date >= $sem_1 & $current_date < $sem_2) {
+            $sem_2 = (new Carbon('first day of February'));
+            if ($current_date >= $sem_1 & $current_date < $end_of_year) {
                 $academic_year = $sem_1->year."/".$sem_1->addYear(1)->year;
                 $semster = 1;
                 return [$academic_year, $semster];
+            } elseif($current_date->month == 1) {
+                $academic_year = $sem_1->subYear(1)->year."/".$sem_1->year;
+                $semster = 1;
             } else {
                 $academic_year = $sem_2->subYear(1)->year."/".$sem_2->year;
                 $semster = 2;
@@ -267,5 +277,29 @@ class StudentController extends Controller
             }
 
         }
+    }
+
+
+    public function studentID(Student $student)
+    {
+        //Generating student id
+        //Count the number of a students in a given academic year and intake
+        $intake_students = Student::where('academic_year',$student->academic_year)
+            ->where('intake', $student->intake)->get()->count();
+        
+        $student_number = sprintf("%03d", $intake_students + 1);
+
+        $year = substr($student->academic_year, 2, 2);
+
+        if ($student->intake == 'January') {
+            $month = '01';
+        } else if ($student->intake == 'May') {
+            $month = '05';
+        } else {
+            $month = '09';
+        }
+
+        $studentID = "BIT/".$year."/".$month."/".$student_number;
+        return $studentID;    
     }
 }

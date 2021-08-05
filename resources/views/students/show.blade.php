@@ -38,7 +38,7 @@
               </div>
 
               <h3 class="profile-username text-center">{{$student->user->name}}</h3>
-
+              <p class="text-center">{{ $student->studentID }}</p>
               <p class="text-muted text-center">{{ $student->course->name }}</p>
             </div>
             <!-- /.card-body -->

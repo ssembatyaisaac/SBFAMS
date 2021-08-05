@@ -43,7 +43,7 @@ class RegistrationController extends Controller
     {
         $registration = Registration::create([
             'student_id' => $request->input('student'),
-            'academic_year' => session('academic_year'),
+            'academic_year' => (new StudentController)->semster(auth()->user()->student)[0],
             'semster' => (new StudentController)->semster(auth()->user()->student)[1],
         ]);
 

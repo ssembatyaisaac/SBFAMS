@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Course;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -86,7 +87,8 @@ class AdminController extends Controller
         $students = User::where('role', 'Student')->get();
         $accountants = User::where('role', 'Accountant')->get();
         $courses = Course::all();
-        return view('admin.show', compact('students', 'accountants', 'courses'));
+        $announcements = Announcement::latest()->get();
+        return view('admin.show', compact('students','accountants','courses', 'announcements'));
     }
 
     /**
