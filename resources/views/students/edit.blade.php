@@ -204,6 +204,8 @@
                     </div>
                 </div>
               </div>
+              <input type="hidden" name="role" value="Student">
+              <input type="hidden" name="password" value="secret">
               
               <button class="btn btn-secondary" type="submit">Update</button>
             </div>
@@ -218,6 +220,10 @@
     </section>
     <!-- /.content -->
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" 
+          integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+  </script>
   <script>
     function previewFile(input){
       var file=$("input[type=file]").get(0).files[0];
@@ -230,6 +236,14 @@
       }
     }
     </script>
+    @if(Session::has('success'))
+    <script>
+      swal("Congratulations!","{!! Session::get('success') !!}","success",{
+        button:"OK",
+      })
+    </script>
+    
+  @endif
  
   <!-- /.content-wrapper -->
 @endsection

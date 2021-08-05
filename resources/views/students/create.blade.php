@@ -22,7 +22,7 @@
           <div> Student has been succesfully added.</div>
           </div>
         </div>
-        @endif 
+        @endif
         <form action="{{ route ('student.store') }}" enctype="multipart/form-data" method="post">
           @csrf
           <div class="card-body">
@@ -82,6 +82,16 @@
                 <div class="form-group">
                   <label for="course">Name:</label>
                   <input type="text" class="form-control" name="name" id="name">
+                </div>
+                <div class="form-group">
+                  <label for="image">Choose Profile Image</label>
+                  <div class="row">
+                    <input type="file" class="btn btn-default col-md-12" name="file" onchange="previewFile(this)">
+                    <img id="previewImg" alt="profile image" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/>
+                    @if($errors->has('profileImage'))
+                      <strong>{{ $errors->first('profileImage') }}</strong>
+                    @endif
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="gender">Gender:</label>
@@ -226,6 +236,10 @@
   </section>
   <!-- /.content -->
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" 
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
 <script>
   function previewFile(input){
     var file=$("input[type=file]").get(0).files[0];
@@ -238,5 +252,13 @@
     }
   }
   </script>
+  @if(Session::has('student_added'))
+    <script>
+      swal("Congratulations!","{!! Session::get('student_added') !!}","success",{
+        button:"OK",
+      })
+    </script>
+    
+  @endif
 <!-- /.content-wrapper -->
 @endsection

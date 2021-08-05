@@ -1,5 +1,16 @@
 @include('partials.header')
 
+<style>
+  body{
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url("/jpg/image2.jpg");
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-size: 100% 100%;
+    
+
+  }  
+</style>
+
 <body class="hold-transition login-page">
 <div class="login-box">
   <!-- /.login-logo -->

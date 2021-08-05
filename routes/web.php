@@ -10,6 +10,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +59,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/loggedout', function(){
     return view('welcome');
 })->name('loggedout');
+
+Route::get('/contact-us', [ContactController::class,'contact']);
+
+Route::post('/send-message',[ContactController::class,'sendEmail'])->name('contact.send');
+
+Route::get('/contact-us', function () {
+    return view('contact-us');
+})->name('contact-us');
