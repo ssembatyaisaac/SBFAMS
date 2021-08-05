@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Registration;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\StudentController;
 use Carbon\Carbon;
 
 class RegistrationController extends Controller
@@ -16,8 +17,10 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        $registrations = Registration::where('student_id', auth()->user()->student->id)->get();
-        return view('registration.index', compact('registrations'));
+        $academic_year = (new StudentController)->semster(auth()->user()->student)[0]; //Getting Student's academic year
+        $semster = (new StudentController)->semster(auth()->user()->student)[1]; //Getting Student's semster
+        $registration = Registration::where('student_id', auth()->user()->student->id)->latest()->first();
+        return view('registration.index', compact('registration', 'semster', 'academic_year'));
     }
 
     /**
@@ -41,7 +44,7 @@ class RegistrationController extends Controller
         $registration = Registration::create([
             'student_id' => $request->input('student'),
             'academic_year' => session('academic_year'),
-            'semster' => session('semster'),
+            'semster' => (new StudentController)->semster(auth()->user()->student)[1],
         ]);
 
         $payment = Payment::create([
@@ -49,7 +52,6 @@ class RegistrationController extends Controller
             'amount' => 0,
             'course_id' => $registration->student->course->id,
             'receipt_id' => '',
-            'accountant_id' => '',
         ]);
 
         return redirect()->route('registration.index');
