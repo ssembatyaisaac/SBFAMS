@@ -42,7 +42,7 @@
                 <form action="{{ route('registration.store') }}" method="post" style="display: flex; justify-content: center;">
                   @csrf
                   @if ($registration != null) <!--available registration-->
-                    @if ($registration->academic_year == session('academic_year') & $registration->semster == $semster)
+                    @if ($registration->academic_year == $academic_year & $registration->semster == $semster)
                       <button class="btn btn-default" disabled="disabled">Already Registered</button>
                     @else
                       <input type="hidden" name="student" value={{ Auth::user()->student->id }}>

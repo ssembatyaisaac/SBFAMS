@@ -29,7 +29,11 @@
         <div class="col-md-3">
 
           <!-- Profile Image -->
+<<<<<<< HEAD
           <div class="card" style="border-top: 5px solid #f4a02e; " >
+=======
+          <div class="card card-primary card-outline">
+>>>>>>> 8082fe7b8def70c8c976e2b3bc82ec8e6608e611
             <div class="card-body box-profile">
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle"
@@ -38,7 +42,7 @@
               </div>
 
               <h3 class="profile-username text-center">{{$student->user->name}}</h3>
-
+              <p class="text-center">{{ $student->studentID }}</p>
               <p class="text-muted text-center">{{ $student->course->name }}</p>
             </div>
             <!-- /.card-body -->

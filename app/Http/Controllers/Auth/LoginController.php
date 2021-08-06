@@ -57,24 +57,6 @@ class LoginController extends Controller
    
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
-            $current_date = Carbon::now();
-            $sem_1 = new Carbon('first day of August');
-            $sem_2 = new Carbon('first day of January');
-            if ($current_date >= $sem_1 & $current_date <= $sem_2) {
-                $academic_year = $current_date->year."/".$current_date->addYear(1)->year;
-                $semster = 1;
-                //Storing academic year and semster in session
-                session(['academic_year'=>$academic_year]);
-                session(['semster'=>$semster]);
-
-            } else if ($current_date >= $sem_2 & $current_date <= $sem_1) {
-                $academic_year = $current_date->year."/".$current_date->addYear(1)->year;
-                $semster = 2;
-
-                session(['academic_year'=>$academic_year]);
-                session(['semster'=>$semster]);
-            }
-
             if (auth()->user()->role == 'Student') {
                 $user_id = auth()->user()->id;
                 //Retrieve student from array

@@ -25,7 +25,7 @@
         <div class="col-12">
         <div class="card">
             <div class="card-header">
-            <h3 class="card-title">course List</h3>
+            <h3 class="card-title">List Of Courses</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -45,7 +45,7 @@
                         <td>{{ $course->name }}</td>
                         <td>{{ $course->code }}</td>
                         <td>{{ $course->duration }} <br> {{ $course->phone_2 }}</td>
-                        <td><a href="">Edit</a></td>
+                        <td><a href="{{ route('course.edit', ['course'=>$course]) }}">Edit</a></td>
                         <td>
                             <form action="" method="post">
                                 @csrf

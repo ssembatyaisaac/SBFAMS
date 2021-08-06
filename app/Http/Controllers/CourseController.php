@@ -65,7 +65,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        //
+        return view('course.edit', compact('course'));
     }
 
     /**
@@ -77,7 +77,14 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $course->name = $request->input('name');
+        $course->code = $request->input('code');
+        $course->duration = $request->input('duration');
+        $course->fees = $request->input('fees');
+        
+        $course->update();
+
+        return redirect()->route('course.index')->with('success', 'Course updated successfully');
     }
 
     /**
