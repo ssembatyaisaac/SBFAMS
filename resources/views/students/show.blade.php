@@ -29,11 +29,11 @@
         <div class="col-md-3">
 
           <!-- Profile Image -->
-          <div class="card card-primary card-outline">
+          <div class="card card-primary card-outline" style="border-top-color: #f4a02e">
             <div class="card-body box-profile">
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle"
-                     src="{{ asset('images')}}/{{$student->profileImage }}" style="max-width:100px;"
+                     src="{{ asset('images')}}/{{$student->user->profileImage }}" style="max-width:100px;"
                      alt="User profile picture">
               </div>
 
@@ -216,6 +216,7 @@
     </div><!-- /.container-fluid -->
   </section>
   <!-- /.content -->
+  @if (auth()->user()->role != 'Student')
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
@@ -302,5 +303,6 @@
     <!-- /.container-fluid -->
   </section>
   <!-- /.content -->
+  @endif
 </div>
 @endsection

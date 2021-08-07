@@ -42,15 +42,15 @@
                 <tbody>
                 @foreach ($admins as $admin)
                     <tr>
-                        <td>{{ $admin->name }}</td>
-                        <td>{{ $admin->email }}</td>
-                        <td>{{ $admin->phone_1 }} <br> {{ $admin->phone_2 }}</td>
-                        <td><a href="">Edit</a></td>
+                        <td>{{ $admin->user->name }}</td>
+                        <td>{{ $admin->user->email }}</td>
+                        <td>{{ $admin->user->phone_1 }} <br> {{ $admin->user->phone_2 }}</td>
+                        <td><a href="{{ route('admin.edit',['admin'=>$admin]) }}">Edit</a></td>
                         <td>
-                            <form action="" method="post">
+                            <form action="{{ route('admin.destroy', ['admin'=>$admin]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button  class="btn btn-xs btn-danger btn-flat show_confirm" type="submit" data-toggle="tooltip" title='Delete' >Delete</button>
+                                <button  class="btn btn-xs btn-danger show_confirm" type="submit" data-toggle="tooltip" title='Delete' >Delete</button>
                             </form>
                         </td>
                     </tr>

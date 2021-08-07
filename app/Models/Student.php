@@ -18,7 +18,6 @@ class Student extends Model
         'optional_course',
         'delivery',
         'sponsorship',
-        'profileImage',
     ];
 
     public function user(){

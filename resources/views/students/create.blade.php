@@ -84,16 +84,6 @@
                   <input type="text" class="form-control" name="name" id="name">
                 </div>
                 <div class="form-group">
-                  <label for="image">Choose Profile Image</label>
-                  <div class="row">
-                    <input type="file" class="btn btn-default col-md-12" name="file" onchange="previewFile(this)">
-                    <img id="previewImg" alt="profile image" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/>
-                    @if($errors->has('profileImage'))
-                      <strong>{{ $errors->first('profileImage') }}</strong>
-                    @endif
-                  </div>
-                </div>
-                <div class="form-group">
                   <label for="gender">Gender:</label>
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="gender" id="gender" value="Male">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Registration;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -98,5 +99,12 @@ class PaymentController extends Controller
     public function destroy(Payment $payment)
     {
         //
+    }
+
+    public function studentPayment(Student $student)
+    {
+        $registrations = $student->registration;
+
+        return view('payment.show', compact('registrations'));
     }
 }

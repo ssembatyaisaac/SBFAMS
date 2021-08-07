@@ -18,7 +18,7 @@
 
         </div>
         <!-- /.card-header -->
-        <form action="{{ route ('admin.store') }}" method="post">
+        <form action="{{ route ('admin.store') }}" enctype="multipart/form-data" method="post">
           @csrf
           <div class="card-body">
             <h5>1.1: ADMIN'S PERSONAL INFORMATION</h5>
@@ -126,6 +126,16 @@
                   <input type="tel" class="form-control" name="mother_contact" id="mother_contact">
                 </div>
               </div>
+              <div class="form-group col-md-12">
+                <label for="image">Choose Profile Image</label>
+                <div class="row">
+                  <input type="file" class="btn btn-default col-md-12" name="file" onchange="previewFile(this)">
+                  <img id="previewImg" alt="profile image" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/>
+                  @if($errors->has('profileImage'))
+                    <strong>{{ $errors->first('profileImage') }}</strong>
+                  @endif
+                </div>
+              </div>
             </div>
 
             <input type="hidden" name="role" value="Admin">
@@ -144,5 +154,21 @@
   </section>
   <!-- /.content -->
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" 
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
+<script>
+  function previewFile(input){
+    var file=$("input[type=file]").get(0).files[0];
+    if(file){
+      var reader = new FileReader();
+      reader.onload = function(){
+        $('#previewImg').attr("src",reader.result);
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
 <!-- /.content-wrapper -->
 @endsection

@@ -59,6 +59,14 @@ class StudentController extends Controller
         //Store Student
        $course_id = Course::firstWhere('name', $request->input('course'))->id;
 
+       $image = $request->file('file');
+        if ($image == null) {
+            $imageName = 'default.jpg';
+        } else {
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('images'),$imageName);
+        }
+
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -78,6 +86,7 @@ class StudentController extends Controller
             'mother_name' => $request->input('mother_name'),
             'mother_contact' => $request->input('mother_contact'),
             'password' => Hash::make($request->input('password')),
+            'profileImage' => $imageName,
           
         ]);
 
@@ -87,13 +96,6 @@ class StudentController extends Controller
         $optional_course = $request->optional_course;
         $delivery = $request->delivery;
         $sponsorship = $request->sponsorship;
-        $image = $request->file('file');
-        if ($image == null) {
-            $imageName = 'default.jpg';
-        } else {
-            $imageName = time().'.'.$image->extension();
-            $image->move(public_path('images'),$imageName);
-        }
 
         //Save Student Details
         $student = new Student();
@@ -104,7 +106,6 @@ class StudentController extends Controller
         $student->optional_course = $optional_course;
         $student->delivery = $delivery;
         $student->sponsorship = $sponsorship;
-        $student->profileImage = $imageName;
         $student->studentID = (new StudentController)->studentID($student);
         $student->save();
         
@@ -183,8 +184,17 @@ class StudentController extends Controller
         $user->father_contact = $request->input('father_contact');
         $user->mother_name = $request->input('mother_name');
         $user->mother_contact = $request->input('mother_contact');
-        
-        $user->password = Hash::make($request->input('password'));
+
+        if($request->file('file')) {
+            $old_image = public_path('images').'/'.$user->profileImage;
+            if (file_exists($old_image) & $user->profileImage != 'default.jpg') {
+                unlink($old_image);
+            }
+            $image = $request->file('file');
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('images'),$imageName);
+            $user->profileImage = $imageName;
+        }
 
         $user->update();
 
@@ -192,23 +202,12 @@ class StudentController extends Controller
         $optional_course = $request->optional_course;
         $delivery = $request->delivery;
         $sponsorship = $request->sponsorship;
-        
-        if($request->file('file'))
-        {
-        $image = $request->file('file');
-        $imageName = time().'.'.$image->extension();
-        $image->move(public_path('images'),$imageName);
-        $student->profileImage = $imageName;
-        }
-        
+         
         $student->intake = $intake;
         $student->optional_course = $optional_course;
         $student->delivery = $delivery;
         $student->sponsorship = $sponsorship;
         
-         
-         
-        $student->save();
         $student->update();
         
 
@@ -226,10 +225,18 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //Delete Student
-        $id = $student->user_id;
-        unlink(public_path('images').'/'.$student->profileImage);
+        $image = public_path('images').'/'.$student->profileImage;
+        if (file_exists($image) & $student->profileImage != 'default.jpg') {
+            unlink($image);
+        }
+        foreach ($student->registration as $registration) {
+            if(!is_null($registration->payment)){
+                $registration->payment->delete();
+            }
+        }
         
-        User::find($id)->delete();
+        $student->registration()->delete();
+        User::find($student->user_id)->delete();
         $student->delete();
         return redirect()->route('student.index');
     }

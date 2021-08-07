@@ -43,6 +43,7 @@ Route::group(['middleware'=>['auth']], function(){
     Route::get('/student/{student}/pay', function(Student $student){
         return view('payment.create', compact('student'));
     })->name('pay');
+    Route::get('/payment/{student}/payments', [PaymentController::class, 'studentPayment'])->name('payments');
 });
 
 

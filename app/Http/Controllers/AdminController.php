@@ -23,7 +23,7 @@ class AdminController extends Controller
     {
         $this->authorize('viewAny', Admin::class);
         
-        $admins = User::where('role', 'Admin')->get();
+        $admins = Admin::all();
         return view('admin.index', compact('admins'));
     }
 
@@ -47,7 +47,15 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //Store Admin
-        //Store accountant details
+        //Store admin details
+        $image = $request->file('file');
+        if ($image == null) {
+            $imageName = 'default.jpg';
+        } else {
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('images'),$imageName);
+        }
+
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -67,6 +75,7 @@ class AdminController extends Controller
             'mother_name' => $request->input('mother_name'),
             'mother_contact' => $request->input('mother_contact'),
             'password' => Hash::make($request->input('password')),
+            'profileImage' => $imageName,
         ]);
 
         $admin = Admin::create([
@@ -99,7 +108,7 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        //
+        return view('admin.edit', compact('admin'));
     }
 
     /**
@@ -111,7 +120,38 @@ class AdminController extends Controller
      */
     public function update(Request $request, Admin $admin)
     {
-        //
+        $admin->user->name = $request->input('name');
+        $admin->user->email = $request->input('email');
+        $admin->user->phone_1 = $request->input('phone_1');
+        $admin->user->phone_2 = $request->input('phone_2');
+        $admin->user->gender = $request->input('gender');
+        $admin->user->religion = $request->input('religion');
+        $admin->user->marital_status = $request->input('marital_status');
+        $admin->user->spouse_name = $request->input('spouse_name');
+        $admin->user->spouse_contact = $request->input('spouse_contact');
+        $admin->user->disability = $request->input('disability');
+        $admin->user->nature_of_disability = $request->input('nature_of_disability');
+        $admin->user->father_name = $request->input('father_name');
+        $admin->user->father_contact = $request->input('father_contact');
+        $admin->user->mother_name = $request->input('mother_name');
+        $admin->user->mother_contact = $request->input('mother_contact');
+
+        if($request->file('file')) {
+            $old_image = public_path('images').'/'.$admin->user->profileImage;
+            if (file_exists($old_image) & $admin->user->profileImage != 'default.jpg') {
+                unlink($old_image);
+            }
+            $image = $request->file('file');
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('images'),$imageName);
+            $admin->user->profileImage = $imageName;
+        }
+
+        $admin->user->update();
+
+        $admin->update();
+
+        return redirect()->route('admin.index');
     }
 
     /**
@@ -122,6 +162,9 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        //
+        $admin->user->delete();
+        $admin->delete();
+
+        return redirect()->route('admin.index');
     }
 }

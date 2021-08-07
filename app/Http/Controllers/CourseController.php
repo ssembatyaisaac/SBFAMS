@@ -95,6 +95,11 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        foreach ($course->student as $student) {
+            (new StudentController)->destroy($student);
+        }
+        $course->delete();
+
+        return redirect()->route('course.index');
     }
 }

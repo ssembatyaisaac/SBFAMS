@@ -35,6 +35,7 @@ class User extends Authenticatable
         'father_contact',
         'mother_name',
         'mother_contact',
+        'profileImage',
     ];
 
     /**

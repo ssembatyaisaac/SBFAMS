@@ -196,7 +196,7 @@
                   <div class="form-group">
                   <label for="image" class="col-md-4 col-form-label">Choose Profile Image</label>
                   <div><input type="file" name="file" onchange="previewFile(this)"></div>
-                  <div><img id="previewImg" alt="profile image" src="{{ asset('images') }}/{{ $student->profileImage }}" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/></div>
+                  <div><img id="previewImg" alt="profile image" src="{{ asset('images') }}/{{ $student->user->profileImage }}" style="max-width:130px; margin-top:20px; margin-bottom:20px;"/></div>
                   @if($errors->has('profileImage'))
                      <strong>{{ $errors->first('profileImage') }}</strong>
                   @endif
@@ -220,29 +220,28 @@
     </section>
     <!-- /.content -->
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" 
-          integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" 
-          crossorigin="anonymous" referrerpolicy="no-referrer">
-  </script>
-  <script>
-    function previewFile(input){
-      var file=$("input[type=file]").get(0).files[0];
-      if(file){
-        var reader = new FileReader();
-        reader.onload = function(){
-          $('#previewImg').attr("src",reader.result);
-        }
-        reader.readAsDataURL(file);
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" 
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+</script>
+<script>
+  function previewFile(input){
+    var file=$("input[type=file]").get(0).files[0];
+    if(file){
+      var reader = new FileReader();
+      reader.onload = function(){
+        $('#previewImg').attr("src",reader.result);
       }
+      reader.readAsDataURL(file);
     }
-    </script>
-    @if(Session::has('success'))
-    <script>
-      swal("Congratulations!","{!! Session::get('success') !!}","success",{
-        button:"OK",
-      })
-    </script>
-    
+  }
+  </script>
+  @if(Session::has('success'))
+  <script>
+    swal("Congratulations!","{!! Session::get('success') !!}","success",{
+      button:"OK",
+    })
+  </script>
   @endif
  
   <!-- /.content-wrapper -->

@@ -56,7 +56,7 @@
                                 <form action="{{ route('student.destroy',['student'=>$student]) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button  class="btn btn-xs btn-danger btn-flat show_confirm" type="submit" data-toggle="tooltip" title='Delete'>Delete</button>
+                                    <button  class="btn btn-xs btn-danger show_confirm" type="submit" data-toggle="tooltip" title='Delete'>Delete</button>
                                 </form>
                             </td>
                         </tr>
@@ -109,7 +109,7 @@
           });
       });
   
-</script>
+  </script>
   <!-- /.content-wrapper -->
 
 @endsection

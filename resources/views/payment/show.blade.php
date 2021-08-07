@@ -36,21 +36,33 @@
                     <th>Semster</th>
                     <th>Course</th>
                     <th>Amount (UGX)</th>
+                    <th>Paid (UGX)</th>
                     <th>Balance (UGX)</th>
-                    <th>Status</th>
                     <th>Receipt ID</th>
+                    <th>Status</th>
                   </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                        <td>2021/2022</td>
-                        <td> I </td>
-                        <td>Software Engineering</td>
-                        <td> 450,000 </td>
-                        <td> 200,000 </td>
-                        <td> Partial Payment</td>
-                        <td> 453988 </td>
-                    </tr>
+                    @foreach ($registrations as $registration)
+                      <tr>
+                        <td>{{ $registration->academic_year }}2</td>
+                        <td> {{ $registration->semster }} </td>
+                        <td>{{ $registration->student->course->name}}</td>
+                        <td>{{ $registration->student->course->fees }}</td>
+                        <td> {{ $registration->payment->amount}} </td>
+                        <td>{{ $registration->student->course->fees - $registration->payment->amount}}</td>
+                        <td>{{ $registration->payment->receipt_id }}</td>
+                        <td>
+                          @if (($registration->student->course->fees - $registration->payment->amount) == 0)
+                            <button class="btn btn-success disabled">Fully Paid</button>
+                          @elseif ($registration->payment->amount == 0)
+                            <button class="btn btn-danger disabled">Not Paid</button>
+                          @else
+                          <button class="btn btn-primary disabled">Partially Paid</button>
+                          @endif
+                        </td>
+                      </tr>
+                    @endforeach
                   </tbody>
                   <tfoot>
                   <tr>
@@ -58,9 +70,10 @@
                     <th>Semster</th>
                     <th>Course</th>
                     <th>Amount (UGX)</th>
+                    <th>Paid (UGX)</th>
                     <th>Balance (UGX)</th>
-                    <th>Status</th>
                     <th>Receipt ID</th>
+                    <th>Status</th>
                   </tr>
                   </tfoot>
                 </table>

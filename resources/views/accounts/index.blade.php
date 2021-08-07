@@ -42,12 +42,12 @@
                 <tbody>
                 @foreach ($accountants as $accountant)
                     <tr>
-                        <td>{{ $accountant->name }}</td>
-                        <td>{{ $accountant->email }}</td>
-                        <td>{{ $accountant->phone_1 }} <br> {{ $accountant->phone_2 }}</td>
-                        <td><a href="">Edit</a></td>
+                        <td>{{ $accountant->user->name }}</td>
+                        <td>{{ $accountant->user->email }}</td>
+                        <td>{{ $accountant->user->phone_1 }} <br> {{ $accountant->user->phone_2 }}</td>
+                        <td><a href="{{ route('accountant.edit',['accountant'=>$accountant]) }}">Edit</a></td>
                         <td>
-                            <form action="" method="post">
+                            <form action="{{ route('accountant.destroy', ['accountant'=>$accountant]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger" type="submit">Delete</button>
@@ -80,4 +80,25 @@
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+     $('.show_confirm').click(function(event) {
+        var form =  $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+        swal({
+            title: `Are you sure you want to delete this record?`,
+            text: "If you delete this, it will be gone forever.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            form.submit();
+        }
+        });
+    });
+</script>
 @endsection

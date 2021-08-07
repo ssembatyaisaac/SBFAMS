@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('phone_2')->default('');
             $table->enum('gender', ['Male', 'Female']);
             $table->date('date_of_birth')->nullable();
+            $table->string('profileImage')->default('default.jpg');
             $table->string('religion')->default('');
             $table->string('marital_status')->default('');
             $table->string('spouse_name')->default('');

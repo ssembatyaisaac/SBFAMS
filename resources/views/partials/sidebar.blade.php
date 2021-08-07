@@ -22,7 +22,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{{ asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+        <img src="{{ asset('images')}}/{{Auth::user()->profileImage }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
         <a href="#" class="d-block">{{ auth()->user()->name }}</a>
@@ -35,6 +35,13 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         @if (Auth::user()->role == 'Student')
+        <li class="nav-item">
+          <a href="{{ route('announcement.index') }}" class="nav-link {{ (request()->is('announcement*')) ? 'active' : '' }}">
+            <p>
+              Announcements
+            </p>
+          </a>
+        </li>
         <li class="nav-item">
           <a href="{{ route('student.show', ['student' => session('user')]) }}" class="nav-link {{ (request()->is('student*')) ? 'active' : '' }}">
             <p>
@@ -51,7 +58,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('payment.index') }}" class="nav-link {{ (request()->is('payment*')) ? 'active' : '' }}">
+          <a href="{{ route('payments', ['student' => session('user')]) }}" class="nav-link {{ (request()->is('payment*')) ? 'active' : '' }}">
             <p>
               Payments
             </p>
