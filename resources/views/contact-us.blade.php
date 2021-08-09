@@ -9,7 +9,7 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body{
-          background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url("/jpg/image2.jpg");
+          background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(74, 100, 247));
           background-repeat:no-repeat;
           background-attachment:fixed;
           background-size: 100% 100%;

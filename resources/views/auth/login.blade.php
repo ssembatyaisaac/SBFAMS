@@ -42,7 +42,7 @@
   <link href="{{ asset('css/global.css') }}" type="text/css" rel="stylesheet">
 <style>
   body{
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url("/jpg/image2.jpg");
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgb(74, 100, 247));
     background-repeat:no-repeat;
     background-attachment:fixed;
     background-size: 100% 100%;
@@ -53,16 +53,6 @@
 </style>
 </head>
 
-<style>
-  body{
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url("/jpg/image2.jpg");
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-    background-size: 100% 100%;
-    
-
-  }  
-</style>
 
 <body class="hold-transition login-page">
 <div class="login-box">
