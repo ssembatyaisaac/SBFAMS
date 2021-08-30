@@ -60,6 +60,10 @@
           <button class="btn" type="submit">Logout</button>
         </form>
         <div class="dropdown-divider"></div>
+        <a href="{{ route('user.edit',['user'=>Auth::user()]) }}"  class="dropdown-item">
+          <button class="btn">Change password</button>
+        </a>
+        <div class="dropdown-divider"></div>
       </div>
     </li>
   </ul>

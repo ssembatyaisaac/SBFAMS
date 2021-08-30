@@ -133,7 +133,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             @foreach ($announcements as $announcement)
-                                <div class="callout callout-danger">
+                                <div class="callout callout-danger" style="border-left-color: #f4a02e">
                                     <h5>{{$announcement->title}}</h5>
                                     <p><a class="btn btn-default" href="files/{{$announcement->name}}"><i class="fas fa-file-download"> Read Details here</i></a></p>
                                     <p>{{date_format($announcement->created_at,'D M Y')}}</p>

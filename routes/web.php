@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AccountantController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 use App\Models\Student;
 use App\Http\Controllers\SuperUserController;
 use App\Http\Controllers\CourseController;
@@ -35,6 +36,7 @@ Route::get('/', function () {
 Route::group(['middleware'=>['auth']], function(){
     Route::resource('student', StudentController::class);
     Route::resource('accountant', AccountantController::class);
+    Route::resource('user', UserController::class);
     Route::resource('admin', AdminController::class);
     Route::resource('course', CourseController::class);
     Route::resource('payment', PaymentController::class);
@@ -44,6 +46,8 @@ Route::group(['middleware'=>['auth']], function(){
         return view('payment.create', compact('student'));
     })->name('pay');
     Route::get('/payment/{student}/payments', [PaymentController::class, 'studentPayment'])->name('payments');
+    Route::post('/confirmPassword/{user}', [UserController::class, 'confirmPassword'])->name('confirmPassword');
+    Route::post('/updatePassword/{user}', [UserController::class, 'updatePassword'])->name('updatePassword');
 });
 
 

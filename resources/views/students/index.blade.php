@@ -39,8 +39,10 @@
                     <th>Course</th>
                     <th>Delivery</th>
                     <th>Intake</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    @if (Auth::user()->role != 'Accountant')
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    @endif
                   </tr>
                   </thead>
                   <tbody>
@@ -51,14 +53,17 @@
                             <td>{{ $student->course->name }}</td>
                             <td>{{ $student->delivery }}</td>
                             <td>{{ $student->intake }}</td>
-                            <td><a href="{{ route('student.edit',['student'=>$student]) }}">Edit</a></td>
-                            <td>
-                                <form action="{{ route('student.destroy',['student'=>$student]) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button  class="btn btn-xs btn-danger show_confirm" type="submit" data-toggle="tooltip" title='Delete'>Delete</button>
-                                </form>
-                            </td>
+                            @if (Auth::user()->role != 'Accountant')
+                              <td><a href="{{ route('student.edit',['student'=>$student]) }}">Edit</a></td>
+                              <td>
+                                  <form action="{{ route('student.destroy',['student'=>$student]) }}" method="post">
+                                      @csrf
+                                      @method('DELETE')
+                                      <button  class="btn btn-xs btn-danger show_confirm" type="submit" data-toggle="tooltip" title='Delete'>Delete</button>
+                                  </form>
+                              </td>
+                            @endif
+                            
                         </tr>
                     @endforeach
                   </tbody>
@@ -69,8 +74,10 @@
                     <th>Course</th>
                     <th>Delivery</th>
                     <th>Intake</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    @if (Auth::user()->role != 'Accountant')
+                      <th>Edit</th>
+                      <th>Delete</th>
+                    @endif
                   </tr>
                   </tfoot>
                 </table>
