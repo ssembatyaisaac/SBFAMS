@@ -28,7 +28,7 @@
                   <input type="text" class="form-control" name="name" id="name" value="{{$student->user->name}}" disabled>
                 <div class="form-group">
                   <label for="student_number">Student Number:</label>
-                  <input type="text" class="form-control" name="student_number" id="student_number" value="20/BIT/003" disabled>
+                  <input type="text" class="form-control" name="student_number" id="student_number" value="{{$student->user->name}}" disabled>
                 </div>
                 <div class="form-group">
                   <label for="amount">Amount:</label>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group">
                   <label for="academic_year">Academic Year:</label>
-                  <input type="text" class="form-control" name="academic_year" id="academic_year" value="{{session('academic_year')}}" disabled>
+                  <input type="text" class="form-control" name="academic_year" id="academic_year" value="{{ session('academic_year') }}" disabled>
                 </div>
                 <div class="form-group">
                   <label for="semster">Semster:</label>

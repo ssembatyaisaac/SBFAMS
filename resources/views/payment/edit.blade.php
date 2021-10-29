@@ -31,22 +31,22 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label for="student_number">Student Number:</label>
-                    <input type="text" class="form-control" name="student_number" id="student_number" value="20/BIT/003" disabled>
+                    <input type="text" class="form-control" name="student_number" id="student_number" value="{{$payment->registration->student->studentID}}" disabled>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-6">
                     <label for="academic_year">Academic Year:</label>
-                    <input type="text" class="form-control" name="academic_year" id="academic_year" value="{{session('academic_year')}}" disabled>
+                    <input type="text" class="form-control" name="academic_year" id="academic_year" value="{{$payment->registration->academic_year}}" disabled>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="semster">Semster:</label>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="semster" id="name" value=1 {{ session('semster') == 1 ? 'checked' : ''}} disabled>
+                      <input class="form-check-input" type="radio" name="semster" id="name" value=1 {{ $payment->registration->semster == 1 ? 'checked' : ''}} disabled>
                       <label class="form-check-label">I</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="semster" id="name" value=2 {{ session('semster') == 2 ? 'checked' : ''}} disabled>
+                      <input class="form-check-input" type="radio" name="semster" id="name" value=2 {{ $payment->registration->semster == 2 ? 'checked' : ''}} disabled>
                       <label class="form-check-label">II</label>
                     </div>
                   </div>
